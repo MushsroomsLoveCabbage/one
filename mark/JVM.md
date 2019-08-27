@@ -1,16 +1,37 @@
--verbose:gc （开启打印垃圾回收日志）
--Xloggc:eclipse_gc.log （设置垃圾回收日志打印的文件，文件名称可以自定义）
--XX:+PrintGCTimeStamps （打印垃圾回收时间信息时的时间格式）
--XX:+PrintGCDetails （打印垃圾回收详情）
+***linux + JVM*** 
+ 物理内存  <->  swap (磁盘空间) （当物理内存不够使用时,linux把一部分暂时不用的内存移动到磁盘中 swap）
+（BIN(引导系统)，内核内存（System -> Buffer -> PageCache），用户内存）
+ 用户内存（用户进程（代码区，数据区，堆区，栈区，未使用））
+ JVM内存(metadata,堆(永久代,老年代,年轻代),栈)
+ 
+* java中NIO 快的原因在于 1)部分直接操作直接对应了内核内存，减少了数据在用户内存，和系统内存间的复制。2)非阻塞
+* JVM 内存 基本等于（永久代, 堆,线程栈,NIO）  
+ 
+ SWAP+GC 会导致GC时间过长，甚至崩溃。
+ 因为GC时需要遍历堆内对象，对于已经在swap 区的数据，需要复制回内存。则在遍历过程中需要把整个堆内存往swap写一遍。
+ linux 对于swap的回收是滞后的。
+ 
+ 动态年龄计算（survivor中某个年龄的存活的占一半，按这个和MaxTenuringThreshold比较取最小值）
 
-GC打印时间: [垃圾回收类型回收时间: [收集器名称: 年轻代回收前占用大小->年轻代回收后占用大小(年轻代当前容量),
-年轻代局部GC时JVM暂停处理的时间] 堆空间GC前占用的空间->堆空间GC后占用的空间(堆空间当前容量)
-,GC过程中JVM暂停处理的时间]。
-垃圾回收类型：分为GC和Full GC.
-GC一般为堆空间某个区发生了垃圾回收，
-Full GC基本都是整个堆空间及持久代发生了垃圾回收，通常优化的目标之一是尽量减少GC和Full GC的频率。
-收集器名称：一般都为收集器的简称或别名，通过收集器名称基本都能判断出那个区发生了GC。
-DefNew：年轻代（新生代）发生了GC （若为DefNew可知当前JVM年轻代使用的串行收集器）
-ParNew：年轻代（新生代）发生了GC （若为ParNew可知当前JVM年轻代使用了并行收集器）
-Tenured：老年代发生了GC
-Perm：持久代发生了GC
+
+
+## CMS
+***CMS清理过程***
+* init-remark  初始标记（STW）
+* concurrent-mark 并发标记
+* concurrent-preclean 预清理
+* concurrent-abortable-preclean 可中止预清理
+* final-remark 最终标记（STW）
+* concurrent-sweep 并发清除
+* concurrent-reset 并发重置状态
+两次小暂停来解决单次过长的STW
+
+## G1
+Region(内存分区)-XX:G1HeapRegionSize<1M-32M> 2的指数
+（大对象会有H（Humongous Object ）标记,大于等于region的一半）
+Root Tracing
+SATB(Snapshot-At-The-Beginging)
+（三色标记算法 白，灰（对象被标记，但它的field 未被标记或未被标记完），黑（对象被标记，field也被标记完））
+RSet(Remembered Set)
+CSet(Collection Set)
+Pause Prediction Model
