@@ -27,11 +27,12 @@
 两次小暂停来解决单次过长的STW
 
 ## G1
-Region(内存分区)-XX:G1HeapRegionSize<1M-32M> 2的指数
+***关键词***
+* Region(内存分区)-XX:G1HeapRegionSize<1M-32M> 2的指数
 （大对象会有H（Humongous Object ）标记,大于等于region的一半）
-Root Tracing
-SATB(Snapshot-At-The-Beginging)
+* Root Tracing
+* SATB(Snapshot-At-The-Beginging)
 （三色标记算法 白，灰（对象被标记，但它的field 未被标记或未被标记完），黑（对象被标记，field也被标记完））
-RSet(Remembered Set)
-CSet(Collection Set)
-Pause Prediction Model
+* RSet(Remembered Set)
+* CSet(Collection Set)
+* Pause Prediction Model
