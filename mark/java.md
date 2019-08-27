@@ -17,6 +17,9 @@ retransformClasses 修改class文件（在旧文件上修改）
 
 ASM框架直接修改class文件生成子类(Spring cglib)
 Spring直接依赖这个来创造class文件，然后加载。
+
+* javap -verbose Demo.class
+
 * [btrace](https://github.com/btraceio/btrace)
 * [Arthas](https://github.com/alibaba/arthas)
 
