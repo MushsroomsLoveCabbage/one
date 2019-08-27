@@ -1,0 +1,53 @@
+jmap -heap <pid>
+
+Attaching to process ID 9592, please wait...
+Debugger attached successfully.
+Server compiler detected.
+JVM version is 25.71-b15
+
+using parallel threads in the new generation.
+using thread-local object allocation.
+Concurrent Mark-Sweep GC  #垃圾收集器
+
+Heap Configuration:
+   MinHeapFreeRatio         = 40  #最小内存空闲比率 -XX:MinHeapFreeRatio=<n>
+   MaxHeapFreeRatio         = 70  #最大内存空闲比率 -XX:MaxHeapFreeRatio=<n>
+   MaxHeapSize              = 1073741824 (1024.0MB) #最大堆内存 -XX:MaxHeapSize =<n>
+   NewSize                  = 89456640 (85.3125MB)  #新生代大小 -XX:NewSize=<n>
+   MaxNewSize               = 348913664 (332.75MB)  #最大新生代大小 -XX:MaxNewSize=<n>
+   OldSize                  = 178978816 (170.6875MB) #老年代大小 -XX:OldSize=<n>
+   NewRatio                 = 2 # 新生代:老年代 2:1 -XX:NewRatio=<n>
+   SurvivorRatio            = 8 # 新生代中 eden:surivor(from, to 2个) 8:2 (8:1:1) -XX:SurvivorRatio=<n>
+   MetaspaceSize            = 21807104 (20.796875MB)  #元空间大小 超过此值就会触发Full GC -XX:MetaspaceSize=<n>
+   CompressedClassSpaceSize = 1073741824 (1024.0MB)   #压缩类空间大小 -XX:CompressedClassSpaceSize=<n>
+   MaxMetaspaceSize         = 17592186044415 MB #  最大元空间大小 -XX:MaxMetaspaceSize=<n>参数设置
+   G1HeapRegionSize         = 0 (0.0MB) #使用G1垃圾收集器的时候，堆被分割的大小 可由-XX:G1HeapRegionSize=<n>参数设置
+
+Heap Usage:
+New Generation (Eden + 1 Survivor Space):
+   capacity = 80543744 (76.8125MB)
+   used     = 36138080 (34.463958740234375MB)
+   free     = 44405664 (42.348541259765625MB)
+   44.86764359997966% used
+Eden Space:
+   capacity = 71630848 (68.3125MB)
+   used     = 35424320 (33.78326416015625MB)
+   free     = 36206528 (34.52923583984375MB)
+   49.45400060041171% used
+From Space:
+   capacity = 8912896 (8.5MB)
+   used     = 713760 (0.680694580078125MB)
+   free     = 8199136 (7.819305419921875MB)
+   8.008171530330882% used
+To Space:
+   capacity = 8912896 (8.5MB)
+   used     = 0 (0.0MB)
+   free     = 8912896 (8.5MB)
+   0.0% used
+concurrent mark-sweep generation:
+   capacity = 187957248 (179.25MB)
+   used     = 134945032 (128.69361114501953MB)
+   free     = 53012216 (50.55638885498047MB)
+   71.7955989651434% used
+
+37193 interned Strings occupying 3792832 bytes.
