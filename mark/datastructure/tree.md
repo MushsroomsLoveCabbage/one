@@ -16,6 +16,9 @@
 ***优化点***
 * 相较于B+树,非叶子节点增加指向兄弟的指针
 
+
+### BTree(BinaryTree)
+
 ### BST(BinarySearchTree)
 * 时间在(O(log N) - O(N)) 最坏，退化为链表。
 
