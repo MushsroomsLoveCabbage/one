@@ -6,7 +6,7 @@ personal mark &amp; code
 ***算法***
 
 ***数据结构***
-* 树
+* 树 [红黑树](https://www.jianshu.com/p/e136ec79235c)
 * 数组
 * 队列
 * 栈
