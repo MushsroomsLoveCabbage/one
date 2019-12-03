@@ -1,3 +1,10 @@
+### JVM 
+## java 对象的基本构成
+* 对象大小必须是8byte 的倍数 
+* 对象由 对象头（8）+ 指针（4/8）+ 数据 + padding 
+* 数组对象是 对象头（8） + 指针（4/8）+ size(int) + 数据 + padding 
+* 默认开启指针压缩，如果内存超过32G 需要关掉（2 32次方 = 32G 即内存超过了指针标记范围）
+
 ***linux + JVM*** 
  物理内存  <->  swap (磁盘空间) （当物理内存不够使用时,linux把一部分暂时不用的内存移动到磁盘中 swap）
 （BIN(引导系统)，内核内存（System -> Buffer -> PageCache），用户内存）
@@ -12,7 +19,6 @@
  linux 对于swap的回收是滞后的。
  
  动态年龄计算（survivor中某个年龄的存活的占一半，按这个和MaxTenuringThreshold比较取最小值）
-
 
 
 ## CMS
