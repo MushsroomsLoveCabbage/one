@@ -20,3 +20,21 @@
   * (3)ContextStoppedEvent
   * (4)ContextClosedEvent
   * (5)RequestHandledEvent
+
+### Spring 循环引用的问题
+
+* singleObject（1）
+
+* earlySingleObject（2）
+
+* currentlyCreateOject（3）
+
+* factoriesObject（4）
+
+bean 在构造前会加入到（3）中，构造完，在populate 属性前会加入到（4）zhong， 在注入属性时候发现注入的类在（3）中，则看（2）中是否有，没有则会在（4）中的为装配属性的对象返回，并且把对象放入到(2)中。
+
+A->B->C->A(C中注入的属性对象就是为装配的的A)
+
+
+
+Spring bean 的BeanDefinition
