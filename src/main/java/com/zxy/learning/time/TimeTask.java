@@ -1,4 +1,4 @@
-package com.zxy.learning.timewheel;
+package com.zxy.learning.time;
 
 /**
  * @author zxy
@@ -17,11 +17,11 @@ public class TimeTask  {
 
     private volatile boolean cancle;
 
-    protected Bucket bucket;
+    protected com.zxy.learning.time.Bucket bucket;
 
-    protected TimeTask next;
+    public TimeTask next;
 
-    protected TimeTask pre;
+    public TimeTask pre;
 
     public String desc;
 

@@ -1,7 +1,8 @@
-package com.zxy.learning.timewheel;
+package com.zxy.learning.time;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import com.zxy.learning.time.Bucket;
+import com.zxy.learning.time.TimeTask;
 
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.atomic.AtomicLong;
@@ -15,24 +16,36 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class TimeWheel {
 
-    private static final Logger logger = LoggerFactory.getLogger(TimeWheel.class);
+    //private static final Logger logger = LoggerFactory.getLogger(TimeWheel.class);
 
-    /** 一个时间槽的时间 */
+    /**
+     * 一个时间槽的时间
+     */
     private final long tickDuration;
 
-    /**  时间轮 大小*/
+    /**
+     * 时间轮 大小
+     */
     private final int wheelSize;
 
-    /** tickDuration * wheelSize */
+    /**
+     * tickDuration * wheelSize
+     */
     private long interval;
 
-    /** 槽 */
+    /**
+     * 槽
+     */
     private final Bucket[] wheel;
 
-    /** 时间轮指针*/
+    /**
+     * 时间轮指针
+     */
     private long currentTimeStamp;
 
-    /** 上级时间轮*/
+    /**
+     * 上级时间轮
+     */
     private volatile TimeWheel overFlowWheel;
 
     private DelayQueue<Bucket> delayQueue;
@@ -41,9 +54,11 @@ public class TimeWheel {
     private int level;
 
     public AtomicLong taskCounter = new AtomicLong(0);
+
     /**
      * <p>Title: </p>
      * <p>Description: </p>
+     *
      * @param tickDuration
      * @param
      * @param
@@ -52,35 +67,34 @@ public class TimeWheel {
         this.tickDuration = tickDuration;
         this.wheelSize = wheelSize;
         this.delayQueue = delayQueue;
-        this.interval = wheelSize *  tickDuration;
+        this.interval = wheelSize * tickDuration;
         this.currentTimeStamp = currentTimeStamp - (currentTimeStamp % tickDuration);
         this.wheel = new Bucket[wheelSize];
-        for(int i = 0; i < wheelSize; i++) {
+        for (int i = 0; i < wheelSize; i++) {
             wheel[i] = new Bucket();
         }
         this.level = level;
     }
 
     /**
-     *
-     * @Title: add
-     * @Description:
      * @param
      * @return void    返回类型
      * @throws
+     * @Title: add
+     * @Description:
      */
     public boolean addTask(TimeTask timeTask) {
         long expireTimeStamp = timeTask.getExpireTimeStamp();
         long delayMs = expireTimeStamp - currentTimeStamp;
-        if(timeTask.isCancle() || delayMs < tickDuration) {
+        if (timeTask.isCancle() || delayMs < tickDuration) {
             return false;
         } else {
-            if(delayMs < interval) {
+            if (delayMs < interval) {
                 int bucketIndex = (int) (((expireTimeStamp) / tickDuration) % wheelSize);
                 Bucket bucket = wheel[bucketIndex];
                 bucket.addTask(timeTask);
 
-                if(bucket.setExpire(expireTimeStamp - (expireTimeStamp % tickDuration))) {
+                if (bucket.setExpire(expireTimeStamp - (expireTimeStamp % tickDuration))) {
                     delayQueue.offer(bucket);
                 }
                 taskCounter.incrementAndGet();
@@ -94,12 +108,11 @@ public class TimeWheel {
     }
 
     /**
-     *
-     * @Title: advanceClock
-     * @Description: 更新时间
      * @param @param timeMs    设定文件
      * @return void    返回类型
      * @throws
+     * @Title: advanceClock
+     * @Description: 更新时间
      */
     public void advanceClock(long timestamp) {
         if (timestamp >= currentTimeStamp + tickDuration) {
@@ -114,14 +127,14 @@ public class TimeWheel {
         if (overFlowWheel == null) {
             synchronized (this) {
                 if (overFlowWheel == null) {
-                    overFlowWheel = new TimeWheel(interval, wheelSize, currentTimeStamp, delayQueue, level+1);
+                    overFlowWheel = new TimeWheel(interval, wheelSize, currentTimeStamp, delayQueue, level + 1);
                 }
             }
         }
         return overFlowWheel;
     }
 
-    public Bucket[] getWheel(){
+    public Bucket[] getWheel() {
         return wheel;
     }
 }

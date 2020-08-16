@@ -1,243 +1,10 @@
 package com.zxy.learning.algorithm.hard;
 
-/**
- * word1
- * word2
- * 增 删 改
- * @author zxy
- * @version 1.0.0
- * @ClassName EditDistance.java
- * @Description
- * @createTime 2019年09月12日 11:05:00
- */
-public class EditDistance {
-
-    public static void main(String[] args) {
-        System.out.println(sloveYX("aefgbfsdarc","abc"));
-    }
-
-//    private static int sloveXY(String source, String target){
-//        int sourceLength = source.length();
-//        int targetLength = target.length();
-//        int[][] dpArray = new int[sourceLength + 1][targetLength + 1];
-//        for(int i = 0; i <= sourceLength; i++){
-//            dpArray[i][0] = i;
-//        }
-//        for(int j = 0; j <= targetLength; j++){
-//            dpArray[0][j] = j;
-//        }
-//        char[] sourceArray = source.toCharArray();
-//        char[] targetArray = target.toCharArray();
-//        for(int i = 1; i<= sourceLength; i++){
-//            for(int j = 1; j<= targetLength; j++){
-//                if(sourceArray[i - 1] == targetArray[j - 1]){
-//                    dpArray[i][j] = dpArray[i-1][j-1];
-//                } else {
-//                    dpArray[i][j] = Math.min(dpArray[i-1][j-1], Math.min(dpArray[i-1][j], dpArray[i][j-1])) + 1;
-//                }
-//            }
-//        }
-//        return dpArray[sourceLength][targetLength];
-//    }
-
-    public static int sloveYX(String source, String target){
-        int sourceLength = source.length();
-        int targetLength = target.length();
-        int[][] dpArray = new int[targetLength + 1][sourceLength + 1];
-        for(int i = 0; i <= sourceLength; i++){
-            dpArray[0][i] = i;
-        }
-        for(int j = 0; j <= targetLength; j++){
-            dpArray[j][0] = j;
-        }
-        char[] sourceArray = source.toCharArray();
-        char[] targetArray = target.toCharArray();
-        for(int j = 1; j<= targetLength; j++){
-            for(int i = 1; i<= sourceLength; i++){
-                if(sourceArray[i - 1] == targetArray[j - 1]){
-                    dpArray[j][i] = dpArray[j-1][i-1];
-                } else {
-                    dpArray[j][i] = Math.min(dpArray[j-1][i-1], Math.min(dpArray[j][i-1], dpArray[j-1][i])) + 1;
-                }
-            }
-        }
-        return dpArray[targetLength][sourceLength];
-    }
-
-
-}
-
-package com.zxy.learning.algorithm.hard;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-
-/**
- * @author zxy
- * @version 1.0.0
- * @ClassName Insert.java
- * @Description
- * @createTime 2019年08月23日 17:08:00
- */
-public class Insert {
-
-    private static List<int[]> insert(List<int[]> source, int[] target){
-        int start = target[0];
-        int end = target[target.length - 1];
-
-        if(source.get(0)[0] > end){
-            source.add(0, target);
-            return source;
-        }
-
-        if(source.get(source.size() -1)[source.get(source.size() -1).length - 1] < start){
-            source.add(source.size(), target);
-            return source;
-        }
-        int startIndex = 0;
-        int endIndex = 0;
-        for(int[] array : source){
-            int tempStart = array[0];
-            int tempEnd = array[array.length - 1];
-            if((tempStart <= start && tempEnd >= start) || tempStart > start ){
-                break;
-            } else{
-                startIndex++;
-            }
-        }
-
-        for(int[] array : source){
-            int tempStart = array[0];
-            int tempEnd = array[array.length - 1];
-            if((tempStart >= end && tempEnd <= end) || tempStart > end ){
-                break;
-            } else {
-                endIndex++;
-            }
-        }
-        int[] array = combin(source, target, startIndex, endIndex);
-        for(int i = startIndex; i< endIndex;i ++){
-            source.remove(i);
-        }
-        source.add(startIndex,array);
-        return source;
-
-    }
-
-    public static int[] combin(List<int[]> source, int[] target, int start, int end){
-
-        int[] array = new int[2];
-        int targetStart = target[0];
-        int targetEnd = target[target.length - 1];
-        int sourceStart = source.get(start)[0];
-        int sourceEnd = source.get(end)[source.get(end).length -1 ];
-        if(targetStart > sourceStart){
-            array[0] = sourceStart;
-        } else {
-            array[0] = targetStart;
-        }
-        if(targetEnd > sourceEnd){
-            array[1] = sourceEnd;
-        } else {
-            array[1] = targetEnd;
-        }
-        return array;
-    }
-
-    public static void main(String[] args) {
-        //int[][] source = new int[][]{{1,2,3},{5,6,7},{9,10,11},{15,16,17}};
-//        List<int[]> source =new ArrayList<>();
-//        source.add(new int[]{1,3});
-//        source.add(new int[]{5,6});
-//        source.add(new int[]{9,11});
-//        source.add(new int[]{15,17});
-//        insert(source, new int[]{7,8}).forEach(temp->{
-//            for(int i : temp){
-//                System.out.print(i + " ");
-//            }
-//            System.out.println();
-//        });
-        String manReward = "109_1";
-        String womanReward = "101_1,102_1,109_1";
-        StringBuffer man = new StringBuffer();
-        StringBuffer woman = new StringBuffer();
-        String piece = "109";
-        if(manReward.contains(piece)) {
-            for(String temp : manReward.split(",")) {
-                if(!temp.contains(piece)) {
-                    man.append(temp).append(",");
-                }
-            }
-        }
-
-        System.out.println(man.substring(0, man.length() - 1));
-        if(womanReward.contains(piece)) {
-            for(String temp : womanReward.split(",")) {
-                if(!temp.contains(piece)) {
-                    woman.append(temp).append(",");
-                }
-            }
-        }
-        System.out.println(woman.substring(0, man.length() - 1));
-    }
-}
-
-
-package com.zxy.learning.algorithm.hard;
-
-/**
- * @author zxy
- * @version 1.0.0
- * @ClassName JumpGame.java
- * @Description
- * @createTime 2019年09月09日 22:25:00
- */
-public class JumpGame {
-
-    public static void main(String[] args) {
-
-        int[] array = new int[]{1,2,3,4,5,6,7,8,9,10};
-    }
-
-    private boolean jumpGame(int[] source) {
-        int[] dp = new int[source.length];
-        dp[0] = 0;
-        for(int i = 1; i < source.length; i++){
-            if(dp[i - 1] + source[i - 1] >= source.length) {
-                return true;
-            } else {
-                dp[i] = Math.max(dp[i - 1], source[i - 1])- 1;
-                if(dp[i] < 0){
-                    return false;
-                }
-            }
-        }
-        return false;
-    }
-}
-
-
-package com.zxy.learning.algorithm.hard;
-
-import com.google.common.collect.Lists;
 import com.zxy.learning.data.structure.binarytree.TreeNode;
-import com.zxy.learning.designpattern.decoratee.Source;
-import org.checkerframework.checker.units.qual.A;
-import org.checkerframework.checker.units.qual.min;
 
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.concurrent.locks.AbstractQueuedSynchronizer;
+import java.util.concurrent.ArrayBlockingQueue;
 
-/**
- * @author zxy
- * @version 1.0.0
- * @ClassName MaxRange.java
- * @Description
- * @createTime 2020年03月21日 18:58:00
- */
 public class MaxRange implements Cloneable {
 
     public static void test12(){
@@ -272,21 +39,21 @@ public class MaxRange implements Cloneable {
         //AbstractQueuedSynchronizer
     }
     public void test10(){
-       //ExecutorService executorService = Executors.newCachedThreadPool();
-       for(int i = 0; i< 3; i++){
-           new Thread(()->{
-               while(true) {
-                   Test test = new Test();
-                   test.setId(1);
-                   list.add(test);
-                   try {
-                       Thread.sleep(1000);
-                   }catch (Exception E){
+        //ExecutorService executorService = Executors.newCachedThreadPool();
+        for(int i = 0; i< 3; i++){
+            new Thread(()->{
+                while(true) {
+                    Test test = new Test();
+                    test.setId(1);
+                    list.add(test);
+                    try {
+                        Thread.sleep(1000);
+                    }catch (Exception E){
 
-                   }
-               }
-           }).start();
-       }
+                    }
+                }
+            }).start();
+        }
         for(int i = 0; i< 2; i++) {
             new Thread(()->{
                 while(true) {
@@ -457,16 +224,16 @@ public class MaxRange implements Cloneable {
         }
         return max;
     }
-    
-    
+
+
     /**
      * @Title
-     * @Description 
-     * @Author zxy 
+     * @Description
+     * @Author zxy
      * @Param [source]
-     * @UpdateTime 2020/3/23 10:12 
+     * @UpdateTime 2020/3/23 10:12
      * @Return int
-     * @throws 
+     * @throws
      */
     public static int minUniqueIncreaseNumber(int[] source, int max){
         if(source.length < 2) {
@@ -509,15 +276,15 @@ public class MaxRange implements Cloneable {
         }
         return result;
     }
-    
+
     /**
      * @Title
-     * @Description 
-     * @Author zxy 
+     * @Description
+     * @Author zxy
      * @Param [source]
-     * @UpdateTime 2020/3/29 1:08 
+     * @UpdateTime 2020/3/29 1:08
      * @Return int
-     * @throws 
+     * @throws
      */
     public int maxArrayDistance(int[][] source){
         int max =Integer.MIN_VALUE;
@@ -531,12 +298,12 @@ public class MaxRange implements Cloneable {
 
     /**
      * @Title
-     * @Description 
-     * @Author zxy 
+     * @Description
+     * @Author zxy
      * @Param [subjectTime, maxEndTime, maxTime]
-     * @UpdateTime 2020/3/29 1:20 
+     * @UpdateTime 2020/3/29 1:20
      * @Return int
-     * @throws 
+     * @throws
      */
     public int maxSubject(int[] subjectTime, int[] maxEndTime, int maxTime){
         int[] dp = new int[maxTime+1];
@@ -659,7 +426,7 @@ public class MaxRange implements Cloneable {
     public static List<String> binaryWatch(){
         List<String> result = new LinkedList<>();
         for(int i = 0; i < 4; i++){
-           result.add((1<<i) + ":00");
+            result.add((1<<i) + ":00");
         }
         for(int i = 0; i < 6; i++){
             String minute = (1<<i) > 10 ?  String.valueOf(1<<i) : "0" +  (1<<i);
@@ -704,12 +471,12 @@ public class MaxRange implements Cloneable {
      * [[1,3],[5,9],[11,14]] , []
      *
      * @Title
-     * @Description 
-     * @Author zxy 
+     * @Description
+     * @Author zxy
      * @Param [source, interval]
-     * @UpdateTime 2020/3/24 19:51 
+     * @UpdateTime 2020/3/24 19:51
      * @Return void
-     * @throws 
+     * @throws
      */
     public static int[][] question57(int[][] source, int[] interval){
         if(interval == null || interval.length != 2){
@@ -846,7 +613,7 @@ public class MaxRange implements Cloneable {
         for(int i = 1; i< source.length; i++){
             if(source[i][0] > end){
                 result.add(new int[]{merge[0], source[i-1][1]});
-                    end = source[i][1];
+                end = source[i][1];
                 merge[0] = source[i][0];
                 merge[1] = source[i][1];
             } else {
@@ -915,12 +682,12 @@ public class MaxRange implements Cloneable {
 
     /**
      * @Title
-     * @Description 
-     * @Author zxy 
+     * @Description
+     * @Author zxy
      * @Param [k, n]
-     * @UpdateTime 2020/4/2 14:12 
+     * @UpdateTime 2020/4/2 14:12
      * @Return java.util.List<int[]>
-     * @throws 
+     * @throws
      */
     public static List<int[]> question216(int k,int n){
         List<int[]> result = new LinkedList<>();
@@ -965,47 +732,4 @@ public class MaxRange implements Cloneable {
         return super.clone();
     }
 }
-
-package com.zxy.learning.algorithm.hard;
-
-/**
- * @author zxy
- * @version 1.0.0
- * @ClassName Tramfer.java
- * @Description
- * @createTime 2019年12月13日 08:44:00
- */
-public class Tramfer {
-
-    public static void main(String[] args) {
-
-    }
-
-    public void test(int distance, int cost, int sum, int capicity){
-        int[] dpArray = new int[distance];
-        for(int i =0; i <= distance; i++){
-            int number =  capicity - 2 * distance;
-            dpArray[i] = number >0 ? number :0;
-        }
-
-        int[] singleArray = new int[distance];
-        for(int i =0; i <= distance; i++){
-            int number = capicity - distance;
-            singleArray[i] = number > 0 ? number :0;
-        }
-        int left = distance;
-        int leftSum = 0;
-        while(left >= 0){
-            sum -= capicity;
-            int realDistance = 0;
-
-            if(sum > 0){
-                leftSum += dpArray[distance];
-            } else {
-                leftSum += singleArray[distance];
-            }
-        }
-    }
-}
-
 

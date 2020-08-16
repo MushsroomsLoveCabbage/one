@@ -1,4 +1,4 @@
-package com.zxy.learning.algorithm.simple;
+package com.zxy.learning.algorithm.leetcode;
 
 import java.util.Arrays;
 
@@ -13,7 +13,7 @@ import java.util.Arrays;
  * @Description
  * @createTime 2020年08月12日 21:25:00
  */
-public class Question136 {
+public class LeetCode136 {
 
     //2. map 集合存
 

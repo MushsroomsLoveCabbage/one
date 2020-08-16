@@ -1,7 +1,7 @@
-package com.zxy.learning.timewheel;
+package com.zxy.learning.time;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import com.zxy.learning.time.Bucket;
 
 import java.util.Random;
 import java.util.concurrent.*;
@@ -17,7 +17,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class Timer {
 
-    private static final Logger logger = LoggerFactory.getLogger(Timer.class);
+   // private static final Logger logger = LoggerFactory.getLogger(Timer.class);
 
     private TimeWheel timeWheel;
 
@@ -107,7 +107,7 @@ public class Timer {
                 }
             }
         } catch (InterruptedException e) {
-            logger.error("延迟队列异常");
+            //logger.error("延迟队列异常");
         }
     }
 
@@ -121,13 +121,13 @@ public class Timer {
 
         @Override
         public Object call() throws Exception {
-            logger.error("call: {} : {} ", excuteTime,  excuteTime - System.currentTimeMillis());
+            //logger.error("call: {} : {} ", excuteTime,  excuteTime - System.currentTimeMillis());
             return new Random().nextInt();
         }
 
         @Override
         public void run() {
-            logger.error("run: {} : {} : {}", excuteTime , excuteTime - System.currentTimeMillis());
+            //logger.error("run: {} : {} : {}", excuteTime , excuteTime - System.currentTimeMillis());
         }
     }
 

@@ -9,7 +9,7 @@ package com.zxy.learning.algorithm.simple;
  * @Description
  * @createTime 2020年08月12日 21:39:00
  */
-public class Question169 {
+public class LeetCode169 {
 
     public static int findMaxNumber(int[] source){
         int count = 1;
