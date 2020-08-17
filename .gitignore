@@ -1,0 +1,12 @@
+
+*.class
+*.class
+*.class
+*.iml
+.idea/.name
+.idea/compiler.xml
+.idea/jarRepositories.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/uiDesigner.xml
+.idea/vcs.xml
