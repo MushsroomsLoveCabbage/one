@@ -1,5 +1,5 @@
 
-**1)ApplicationContextInitializer**
+ 1)ApplicationContextInitializer
 ---
   spring 容器刷新前的一个回调函数
   @Order(1) 

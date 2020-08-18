@@ -1,4 +1,4 @@
-##Hashmap
+## Hashmap
 
 ### 关键部分
 
@@ -7,8 +7,6 @@
 * hash key , (table size -1 & hashkey 决定在数组中的位置） 
 
   hashKey (h= key.hashCode()) ^ (h>>>16) 高16位^低16位 （这样保证高位会参与到hash计算中，不然会因为table size 小，table size的高位全为0，导致key的碰撞变多）
-
-  
 
 * 扩容时候数组对象如果是链表/红黑树拆分，到新数组中的相同下标和扩容数组中位置。（红黑树可能会退化为链表）
 

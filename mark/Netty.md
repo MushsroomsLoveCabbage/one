@@ -35,6 +35,4 @@
 * FixedLengthFrameDecoder(定长报文)
 * DelimiterBasedFrameDecoder(特殊字符划分，常见的有 \n    \r\n)
 
-
-
 ####
