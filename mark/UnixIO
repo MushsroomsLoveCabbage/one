@@ -1,0 +1,37 @@
+#### Common
+
+- sync IO
+
+- kernal call
+
+- 标准IO 
+
+  ***Block***
+
+- Waiting for kernal get the data from  the I/O  to be ready
+
+- copy data from kernal to process
+
+  
+
+#### Select
+
+- Array
+- interator
+- fd limit 1024
+- Copy  fd set from user space to kernal space when each select
+
+#### poll
+
+- List
+- interator
+- not fd limit
+- Copy  fd set from user space to kernal space when each select
+
+#### epoll 
+
+- single driver
+
+- hashTable
+- callback
+- callback function 
