@@ -40,6 +40,7 @@
   User -> kernal: (1)recv
   kernal -> User: (2)数据未准备好
   User -> kernal: (3)recv
+  Note left of User:进程阻塞在 \n select 操作中 
   kernal -> User: (4)数据未准备好
   User -> kernal: (5)recv
   Note over  kernal: (6)数据准备好
@@ -62,7 +63,7 @@
   Note left of User: 进程阻塞 \n 从(5)->(7)
   Note over kernal: (6)复制数据包到\n用户空间
   kernal -> User:  (7)返回
-   ```
+  ```
 
   
 
