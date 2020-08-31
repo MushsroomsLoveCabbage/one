@@ -80,8 +80,8 @@ personal mark &amp; code
 
 #### 书籍
 
-* DDIA
-* Computer Systems : A Programmer's Perspective 
-* Streaming systems
-* Understanding the Linux Kernel
+* [DDIA(Design Data Intensive Application)](https://book.douban.com/subject/30329536/)
+* [CSAPP(Computer Systems : A Programmer's Perspective)](https://book.douban.com/subject/26912767/)
+* [Streaming systems](https://book.douban.com/subject/27080632/)
+* [Understanding the Linux Kernel](https://book.douban.com/subject/1776614/)
 * 
