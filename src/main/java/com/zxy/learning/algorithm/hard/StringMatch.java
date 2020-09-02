@@ -151,4 +151,156 @@ public class StringMatch {
     //最长可匹配后缀子串, 最长可匹配前缀子串。
     // [r,i]  是 [0,i]d [r,i-1] [0,i-1]
     //
+     /**
+     * abcebc
+     * abd
+     * 碰到不匹配字符 找主串中匹配字符下个字符 即 i + target.length() - j
+     * i = 2,j=2,length=3 => i = 2 - 2 + 3,
+
+     * abcdbc   abcdbc
+     * abd       abd
+     * 如果匹配串中有这个字符 i移动到整个匹配串最后位前moveIndex位
+     * i = 3,moveIndex=3 => i= i-moveIndex= 0, j=0
+     * abcebc
+     * abd
+     * 没有这个字符 i 移动到整个匹配串的下一位
+     * j=0;i=3
+     *
+     */
+    public int Sunday(String source, String target){
+        Map<Character, Integer> charIndexMap = new HashMap<>();
+        char[] charArray =  target.toCharArray();
+        for(int i = 0; i< target.length(); i++){
+            char tempChar = charArray[i];
+            charIndexMap.put(tempChar, i+1);
+        }
+        char[] sourceArray = source.toCharArray();
+        int j = 0;
+        for(int i = 0; i< sourceArray.length; i++){
+            if(sourceArray[i] != charArray[j]){
+                i = i -j + charArray.length;
+                char next = sourceArray[ i];
+                Integer moveIndex = charIndexMap.get(next);
+                if(moveIndex != null){
+                    i -= moveIndex;
+                }
+                j = 0;
+            } else {
+                j++;
+            }
+            if(j == charArray.length){
+                return i - j + 1;
+            }
+        }
+        return -1;
+    }
+    
+     public void generateBC(String source,Map<Character, Integer> BadCharIndexMap){
+        char[] sourceArray = source.toCharArray();
+        for(int i = 0; i< source.length(); i++){
+            BadCharIndexMap.put(sourceArray[i], i);
+        }
+    }
+
+    /**
+     * cabcab
+     * suffix  模式串中和后缀子串匹配的子串的最右下标 不存在则-1
+     * 2 b
+     * 1 ab
+     * 0 cab
+     * -1 bcab
+     * -1 abcab
+     *
+     * prefix 好后缀的后缀子串中 找最长的能跟模式串前缀子串匹配的后缀子串
+     *  false b
+     *  false ab
+     *  true cab
+     *  false bcab
+     *  false abcab
+     */
+    private void generateGS(char[] b, int m, int[] suffix, boolean[] prefix) {
+        // 初始化
+        for (int i = 0; i < m; ++i) {
+            suffix[i] = -1;
+            prefix[i] = false;
+        }
+        // b[0, i]
+        for (int i = 0; i < m - 1; ++i) {
+            int j = i;
+            // 公共后缀子串长度
+            int k = 0;
+            // 与b[0, m-1]求公共后缀子串
+            while (j >= 0 && b[j] == b[m-1-k]) {
+                --j;
+                ++k;
+                //j+1表示公共后缀子串在b[0, i]中的起始下标
+                suffix[k] = j+1;
+            }
+
+            if (j == -1) {
+                //如果公共后缀子串也是模式串的前缀子串
+                prefix[k] = true;
+            }
+        }
+    }
+
+
+
+    /**
+     * 坏字符原则
+     * 好后缀原则
+     *
+     */
+    public int bm(String source, String target){
+        char[] a = source.toCharArray();
+        int n = source.length();
+        char[] b = target.toCharArray();
+        int m = target.length();
+            // 记录模式串中每个字符最后出现的位置
+        Map<Character, Integer> BadCharIndexMap = new HashMap<>();
+            // 构建坏字符哈希表
+        generateBC(source, BadCharIndexMap);
+
+            int[] suffix = new int[m];
+            boolean[] prefix = new boolean[m];
+            generateGS(b, m, suffix, prefix);
+           // j表示主串与模式串匹配的第一个字符
+            int i = 0;
+            while (i <= n - m) {
+                int j;
+                // 模式串从后往前匹配
+                for (j = m - 1; j >= 0; --j) {
+                    if (a[i+j] != b[j]) {
+                        break; // 坏字符对应模式串中的下标是j
+                    }
+                }
+                if (j < 0) {
+                    // 匹配成功，返回主串与模式串第一个匹配的字符的位置
+                    return i;
+                }
+                int x = j - BadCharIndexMap.getOrDefault((int)a[i+j], -1);
+                int y = 0;
+                // 如果有好后缀的话
+                if (j < m-1) {
+                    y = moveByGS(j, m, suffix, prefix);
+                }
+                i = i + Math.max(x, y);
+            }
+            return -1;
+        }
+
+    private int moveByGS(int j, int m, int[] suffix, boolean[] prefix) {
+        // 好后缀长度
+        int k = m - 1 - j;
+        if (suffix[k] != -1) {
+            return j - suffix[k] +1;
+        }
+        for (int r = j+2; r <= m-1; ++r) {
+            if (prefix[m-r] == true) {
+                return r;
+            }
+        }
+        return m;
+    }
+
 }
