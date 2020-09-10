@@ -86,4 +86,4 @@ personal mark &amp; code
 * [CSAPP(Computer Systems : A Programmer's Perspective)](https://book.douban.com/subject/26912767/)
 * [Streaming systems](https://book.douban.com/subject/27080632/)
 * [Understanding the Linux Kernel](https://book.douban.com/subject/1776614/)
-* 
+* [Operating System The three piece](https://book.douban.com/subject/33463930/)

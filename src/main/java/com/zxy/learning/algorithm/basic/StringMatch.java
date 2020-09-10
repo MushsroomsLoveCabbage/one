@@ -440,7 +440,7 @@ public class StringMatch {
         int j = 0;
         for (int i = 0; i < targetArray.length; i++) {
             while (j > 0 && sourceArray[i] != targetArray[j]) {
-                j = next[j];
+                j = next[j] + 1;
             }
             if (sourceArray[i] == targetArray[j]) {
                 j++;

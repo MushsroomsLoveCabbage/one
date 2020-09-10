@@ -99,6 +99,7 @@ public class LeetCode15 {
             if(val < nums[index]){
                 return;
             }
+            //
             singleArray[number] = nums[index];
             int tempSum = Arrays.stream(singleArray).sum();
 
