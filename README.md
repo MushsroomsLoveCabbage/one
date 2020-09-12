@@ -3,9 +3,14 @@ personal mark &amp; code
 
 ### 计算机基础
 
-* 
+* CPU 
+* 虚拟内存
+* 并发
 
 ### 网络基础
+
+* 网络分层
+* 
 
 ### 数据库基础
 ***公共基础***
@@ -55,8 +60,6 @@ personal mark &amp; code
 
 * 平衡树
 * [红黑树](https://www.jianshu.com/p/e136ec79235c)
-
-
 
 ***数组*** 
 

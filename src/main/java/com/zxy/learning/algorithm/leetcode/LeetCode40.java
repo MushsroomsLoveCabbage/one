@@ -14,6 +14,7 @@ public class LeetCode40 {
     public static void main(String[] args) {
         new LeetCode40().combinationSum2(new int[]{10,1,2,7,6,1,1,1,5}, 8);
         new LeetCode40().combinationSum(new int[]{2,3,7}, 7);
+        new LeetCode40().combinationSum3(3, 15);
     }
 
     int length;
@@ -23,6 +24,32 @@ public class LeetCode40 {
     List<Integer> tempList = new ArrayList<>();
 
     long jump;
+
+    int number;
+    //不允许重复使用，不允许重复结果集
+    public List<List<Integer>> combinationSum3(int k, int target) {
+        number  = k;
+        dfs3(1,0, target);
+        return list;
+    }
+
+    public void dfs3(int val, int index, int target) {
+        if(target == 0 && index == number){
+            list.add(new ArrayList<>(tempList));
+            return;
+        }
+        if (val == 10 || index == number + 1){
+            return;
+        }
+        if(val > target){
+            return;
+        }
+
+        tempList.add(val);
+        dfs3(val+1, index + 1,  target - val);
+        tempList.remove(tempList.size() - 1);
+        dfs3(val+1, index,  target);
+    }
 
     //不允许重复使用，不允许重复结果集
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
