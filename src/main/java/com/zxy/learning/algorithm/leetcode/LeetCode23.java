@@ -1,5 +1,12 @@
 package com.zxy.learning.algorithm.leetcode;
 
+/**
+ * 思路 分治合并 分割成最小的再合并
+ *
+ * 顺序合并 0-1, merge2, merge3
+ *
+ *
+ */
 public class LeetCode23 {
 
     static class ListNode {
@@ -37,11 +44,11 @@ public class LeetCode23 {
         ListNode temp = result;
         while (left != null && right != null) {
             if (left.val > right.val) {
-                temp.next = left;
-                left = left.next;
-            } else {
                 temp.next = right;
                 right = right.next;
+            } else {
+                temp.next = left;
+                left = left.next;
 
             }
             temp = temp.next;

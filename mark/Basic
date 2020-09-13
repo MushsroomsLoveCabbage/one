@@ -33,3 +33,5 @@ SSL（Secure Sockets Layer）及其继任者传输层安全（Transport Layer Se
 
 10) java.io.FileNotFoundException: .\xxx\xxx.txt (系统找不到指定的路径。)是当前所指定的文件不存在或者目录不存在。 
 java.io.FileNotFoundException: .\xx\xx (拒绝访问。)是因为你访问了一个文件目录，而不是文件，因此会抛出问题2的异常。
+
+11）windows 文件默认编码是ANSI,为了支持Unicode 通过在文件头添加BOM来标识。如果是0xFF 0xFE，是UTF16LE，如果是0xFE 0xFF则UTF16BE，如果是0xEF 0xBB 0xBF，则是UTF-8。（window打开时候默认是通过这些来选择解码方式，这在linux中会导致乱码问题）
