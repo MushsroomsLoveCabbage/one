@@ -7,10 +7,17 @@ personal mark &amp; code
 * 虚拟内存
 * 并发
 
+### 操作系统
+
+* 虚拟化（CPU, 内存）
+* 并发
+* 持久性
+
 ### 网络基础
 
 * 网络分层
-* 
+* TCP 流量控制（端对端的）与拥塞控制(对整个网络的)
+  * [BBR 算法](https://github.com/google/bbr)
 
 ### 数据库基础
 ***公共基础***
@@ -80,6 +87,12 @@ personal mark &amp; code
 ***消息中间件***
 
 * kafka
+
+
+
+### 工具
+
+* wireshark(网络抓包工具)
 
 ### 推荐书籍&文章
 
