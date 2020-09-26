@@ -1,67 +1,40 @@
 # one
-personal mark &amp; code
+***大纲***
 
 ### 计算机基础
 
-* CPU 
-* 虚拟内存
-* 并发
+#### 操作系统
 
-### 操作系统
+		* CPU、内存、数据持久化、并发
 
-* 虚拟化（CPU, 内存）
-* 并发
-* 持久性
-
-### 网络基础
+#### 网络基础
 
 * 网络分层
 * TCP 流量控制（端对端的）与拥塞控制(对整个网络的)
   * [BBR 算法](https://github.com/google/bbr)
 
-### 数据库基础
+#### 数据库基础
 ***公共基础***
 
-* 存储
-* 锁
-* 日志
-* 读取
+* 存储、锁、日志、索引.
 
 ***具体数据库***
 
-***Mysql***
+***[Mysql](https://github.com/MushsroomsLoveCabbage/one)***
 
-* 索引
-* 日志
-* 事物(Transaction)
-* 
+***[ElasticSearch](https://github.com/MushsroomsLoveCabbage/one)***
 
-***ElasticSearch***
+***[Redis](https://github.com/MushsroomsLoveCabbage/one)***
 
-* 
+***[MongoDB](https://github.com/MushsroomsLoveCabbage/one)***
 
-***Redis***
+***[HDFS](https://github.com/MushsroomsLoveCabbage/one)***
 
-* 数据结构
+#### 算法
 
-* 
+* DP、回溯、排序、KMP
 
-***MongoDB***
-
-* 数据结构
-
-***HDFS***
-
-* 
-
-### 算法
-
-* DP
-* 回溯
-* 排序
-* KMP
-
-### 数据结构
+#### 数据结构
 
 ***树***
 
@@ -72,31 +45,22 @@ personal mark &amp; code
 
 ***队列***
 
-* 栈
-* 堆
-* 散列表
+* 栈、堆、散列表
 
-### 编程语言
-***JAVA***
+#### 编程语言
 
-***JVM*** 
+* JAVA
 
-***C***
-
-### 中间件
+#### 中间件
 ***消息中间件***
 
-* kafka
+* [KAFKA](https://github.com/MushsroomsLoveCabbage/one)
 
+#### 工具
 
+* WIRESHARK(网络抓包工具)
 
-### 工具
-
-* wireshark(网络抓包工具)
-
-### 推荐书籍&文章
-
-#### 书籍
+#### 推荐书籍&文章
 
 * [DDIA(Design Data Intensive Application)](https://book.douban.com/subject/30329536/)
 * [CSAPP(Computer Systems : A Programmer's Perspective)](https://book.douban.com/subject/26912767/)

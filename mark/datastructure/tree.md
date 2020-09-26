@@ -1,4 +1,4 @@
-## 树
+## Tree
 
 ### B-Tree(m阶BalanceTree)
 * 1)每个节点最多能有m个孩子
@@ -28,7 +28,7 @@
 * 二叉树
 
 ### BST(BinarySearchTree)
-* 时间在(O(log N) - O(N)) 最坏，退化为链表。
+* 时间在(O(log N) - O(N)) 最坏，退化为链表。s
 
 ### AVL(二叉平衡搜索树)(AVL是严格的平衡二叉树)
 

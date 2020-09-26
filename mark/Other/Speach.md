@@ -32,7 +32,7 @@ esstem
 
 indiv
 
-这个时代人们太过自我崇拜，而忽视人是社会性动物，太关注与自己，而不是我们。
+这个时代人们太过自我崇拜，而忽视人是社会性动物，太关注于自己，而不是我们。
 
 relationship identity responablelity
 
