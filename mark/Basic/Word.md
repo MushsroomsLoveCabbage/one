@@ -1,0 +1,8 @@
+- virtualization
+- concurrency
+- persistence
+- colume
+- Consensus
+- Consistency
+- Durability
+- Heterogeneous 异质
