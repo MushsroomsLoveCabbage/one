@@ -25,6 +25,15 @@
 
 ```C
 #include <stdio.h>
+ typedef struct redisObject {
+    unsigned type:4;
+    unsigned encoding:4;
+    unsigned lru:LRU_BITS; /* LRU time (relative to global lru_clock) or
+                            * LFU data (least significant 8 bits frequency
+                            * and most significant 16 bits access time). */
+    int refcount;
+    void *ptr;
+} robj;
  
 int main ()
 {
@@ -40,6 +49,16 @@ int main ()
    printf("Address stored in ip variable: %p\n", ip );
    /* 使用指针访问值 */
    printf("Value of *ip variable: %d\n", *ip );
+   //数组指针的使用
+   int array[10];
+   //指针拿到了数组的初始地址
+   int* arrayPoint = &array;
+   //指针数组虽然未定义，但是在装换中直接使用初始的地址+偏移量获得了内存位置中的对象
+   arrayPoint[0];//获得的是
+   //redis 中client 对象属性 
+   robj **argv;
+   //获得*argv的首地址+i*offset的对象的ptr指针
+   c->argv[i]->ptr;
    return 0;
 }
 ```
