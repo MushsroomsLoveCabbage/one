@@ -124,5 +124,9 @@ kafka 实现excatly once
 - joinGroup & syncGroup
 - 每次重平衡时候都需要成员重新入组
 
-
+##### 副本间的同步如何实现
+* kafka 为leader 和每个replica 记录一个高水位和LEO 标记，用来标记已经被提交的消息偏移和最大接收偏移，
+* replica 在拉取数据时候向leader提交自己的LEO，以此leader 来更新自身的高水位。
+* 同时replica 依据数据来更新自己的LEO
+* Leader epoch
 
