@@ -101,7 +101,28 @@ kafka 实现excatly once
 
 ```
 
+##### Controller 控制器管理（）
 
+- 每个Broker 上都有控制器，应用启动是抢注册
+- 支持failover 机制
+- **rmr /controller**（碰到broker卡死等问题可以在zookeeper 上删除controller 来实现快速的恢复）
+
+##### 消费者组重平衡
+
+- 触发条件
+  - 新成员变化（新加入或者离开）
+  - 分区变化
+  - 订阅主题变化
+- 通过心跳来通知消费者重平衡（心跳信息携带 REBALANCE_IN_PROGRESS）因此heartbeat.interval.ms 参数可以控制重平衡速率
+
+- 状态
+  - Empty
+  - Dead
+  - PreparedRebalance
+  - CompletingRebalance
+  - Stable
+- joinGroup & syncGroup
+- 每次重平衡时候都需要成员重新入组
 
 
 
