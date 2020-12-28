@@ -6,3 +6,6 @@
 - Consistency
 - Durability
 - Heterogeneous 异质
+- Discard
+- Module
+- 

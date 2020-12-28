@@ -22,6 +22,7 @@ public class GenerateParenthesis {
     }
 
     public static void test(){
+        new ArrayList<>();
         Vector<Integer> vector = new Vector<>();
         Stack<Integer> stack = new Stack<>();
         vector.add(3);
