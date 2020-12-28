@@ -1,3 +1,5 @@
+#### Redis 基于源码层的理解
+
 ##### 系统初始化
 
 - 设置回调（在系统进程被Kill时触发）
@@ -37,13 +39,21 @@ typedef struct redisDb {
    int id;                     /* Database ID */
     long long avg_ttl;          /* Average TTL, just for stats */
 } redisDb;
+
+```
+
+#### SDS
+
+```
+Simple Dynamic String
+byte[] dataArray
+int length
+
 ```
 
 
 
 #### 数据的删除处理主要有两种，一个是DEL命令的删除，一个是过期数据的删除
-
-
 
 #### Command
 
