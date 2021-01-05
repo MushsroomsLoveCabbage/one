@@ -129,4 +129,8 @@ kafka 实现excatly once
 * replica 在拉取数据时候向leader提交自己的LEO，以此leader 来更新自身的高水位。
 * 同时replica 依据数据来更新自己的LEO
 * Leader epoch
-
+#### HW + leader epoch
+- HW 用来标记当前的已经确认的数据，(需要在从都确认后确定偏移量在更新Leader 的hw ,之后follwer 再下一次拉取更新自己的HW)
+- LEO (log end offset) 当前已经获得的消息偏移量
+- Leader epoch <version, offset> 
+- follwer 在重启之后根据leader epoch 来更新自己的HW 和处理是否数据截断，
