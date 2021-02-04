@@ -134,3 +134,38 @@ kafka 实现excatly once
 - LEO (log end offset) 当前已经获得的消息偏移量
 - Leader epoch <version, offset> 
 - follwer 在重启之后根据leader epoch 来更新自己的HW 和处理是否数据截断，
+
+### 消息保证（Producer 端，Consumer 端需要自己保证）
+
+##### At most once
+
+##### At least Once
+
+##### Exactly Once Semantics 
+
+- Idempotent Producer：Exactly-once，in-order，delivery per partition；
+- Transactions：Atomic writes across partitions；
+  - 解决幂等性下单个producer 写多个partition 部分失败问题
+  - 解决producer 失败重启，导致消息重复问题
+- Exactly-Once stream processing across read-process-write tasks；
+
+
+
+- 保证手段 (Idempotence, Transaction)
+- 参数 enable.idempotence
+- 实现逻辑是broker 端多保存一些字段，来比较收到的消息，保证消息不重复（幂等性的只能保证在单事务下的幂等）
+- 事务型的producer, Consumer 端需要设置isolation.level 消费隔离级别
+
+```java
+producer.initTransactions();
+try {
+            producer.beginTransaction();
+            producer.send(record1);
+            producer.send(record2);
+            producer.commitTransaction();
+} catch (KafkaException e) {
+            producer.abortTransaction();
+}
+```
+
+- (参考文档)[https://cloud.tencent.com/developer/article/1430986]
