@@ -1,25 +1,49 @@
+## Spring 
 
- 1)ApplicationContextInitializer
----
+------
+
+**容器启动原理：**Spring应用的IOC容器通过tomcat的Servlet或Listener监听启动加载；Spring MVC的容器由DispatchServlet作为入口加载；Spring容器是Spring MVC容器的父容器
+
+
+
+### IOC
+
+#### BeanFactory 
+
+* Bean 管理的核心类
+
+####  ApplicationContext
+
+* 继承BeanFactory 对类功能进行拓展和延伸
+
+------
+
+### AOP
+
+#### 
+
+####  ApplicationContextInitializer
+
   spring 容器刷新前的一个回调函数
   @Order(1) 
-  *_实现方式*_
+  **实现方式**
+
   * (1) application.addInitializer()
   * (2) 配置文件 context.initializer.classes = ?,?
   * (3) META/INF 文件夹下 spring.factories 
       org.springframework.context.ApplicationContextInitializer = ?
 ---
-**2)ApplicationListener**
----
+#### **ApplicationListener**
   * 观察者模式
   * 监听注册事件
 ---
-**3)ApplicationContext**
-  * (1)ContextRefreshedEvent
-  * (2)ContextStartedEvent
-  * (3)ContextStoppedEvent
-  * (4)ContextClosedEvent
-  * (5)RequestHandledEvent
+#### **ApplicationContext**
+
+  * ContextRefreshedEvent
+  * ContextStartedEvent
+  * ContextStoppedEvent
+  * ContextClosedEvent
+  * RequestHandledEvent
 
 ### Spring 循环引用的问题
 
@@ -37,4 +61,4 @@ A->B->C->A(C中注入的属性对象就是为装配的的A)
 
 
 
-Spring bean 的BeanDefinition
+#### Spring bean 的BeanDefinition

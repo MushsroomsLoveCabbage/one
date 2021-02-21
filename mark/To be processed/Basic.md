@@ -10,16 +10,9 @@
     alt -  ctrl + w  
 * 进入VI后，按/，然后输入字符串，回车，按N或者n是向前向后搜索该字符串
 
-4)/AEGame/Unity3dM_cn_cn_Server/S340010000/WebRoot/WEB-INF/
-
-update map_cell set n_tid = (SELECT n_rid FROM dict_map_resource 
-WHERE n_rid >= (SELECT floor(RAND() * (SELECT MAX(n_rid) FROM dict_map_resource)))  
-ORDER BY n_rid LIMIT 1) where n_type=3
-
 Oriented 面向
 Ambiguity 双关
-SSL（Secure Sockets Layer）及其继任者传输层安全（Transport Layer Security，TLS）
-是为网络通信提供安全及数据完整性的一种安全协议。TLS与SSL在传输层对网络连接进行加密。
+
 
 5) linux rz 上传 sz 下载
 
