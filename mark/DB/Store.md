@@ -2,7 +2,7 @@
 
 Open-channel SSD
 
-SSTable 与SSD的Block 对齐—>  LST-Tree的删除操作与SSD的Block 回收合并
+SSTable 与SSD的Block 对齐 ->  LST-Tree的删除操作与SSD的Block 回收合并
 
 
 

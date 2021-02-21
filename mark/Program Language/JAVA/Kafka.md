@@ -97,11 +97,7 @@ kafka 实现excatly once
 
 ```
 
-```java
-
-```
-
-##### Controller 控制器管理（）
+##### Controller 控制器管理
 
 - 每个Broker 上都有控制器，应用启动是抢注册
 - 支持failover 机制

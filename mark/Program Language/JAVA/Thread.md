@@ -1,4 +1,4 @@
-#### hread
+#### Thread
 
 
 ##### JAVA线程状态
@@ -12,7 +12,7 @@
 
 ##### 操作系统内线程状态
 
-- Runnable
+- RunnableS
 - Running
 - Blocked（java 的 blcked,waiting, timed_wait 都对应的这个状态）
 ##### JAVA - Operation System

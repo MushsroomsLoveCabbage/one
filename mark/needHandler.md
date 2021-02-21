@@ -69,16 +69,12 @@ DAGScheduler
 Spark 
 Not Thing Boring,actually the way we do,is boring.
 
-* 抽象所带来的复杂度，需要在其他地方大大简化系统整体复杂度。
-  * 需求获取,问题抽象，测试，运维，监控，部署，框架运用，
-    系统间集成，灵活性，未来拓展性，易用性，系统健壮性，多版本实验性，高层业务决策
+
 
 fork() 函数 新增一个子 进程并继续与父进程共同执行下面的代码
 
 select version()
 group by col (order by col 默认的) order by null 干掉排序
-\u unicode \x 16进制
-\b 二进制 \o 8进制
 
 CURRENT_TIMESTAMP
 
@@ -111,9 +107,4 @@ netstat -na -p tcp| findstr 80 | find  "ESTABLISH"
 netstat -an -p tcp | find "127.0.0.1" | find  "2112"
 netstat -an |find  ":80" 
 
-jps -l
-jstat -gc pid timeInterval number
 
-
-TCP层的安全可靠是针对于TCP层
-消息的可靠传递需要Context

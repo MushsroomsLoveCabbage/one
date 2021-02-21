@@ -20,7 +20,7 @@ script language -> dynamic language
 高级语言->汇编语言->执行
 
 解释型语言 java, python(运行时候再翻译)
-编译型语言 C, C++(编译时候直接翻译转换成机器码)·
+编译型语言 C, C++(编译时候直接翻译转换成机器码)
 
 loopback address(127.0.0.1)
 domain socket

@@ -6,9 +6,9 @@
 - use PLE to reveal my thinking about the problem domain 
 - all ambiguity stops at the code, the art of programming  using the PLE can help me simplify and debug  the flawed ideas(有缺陷的想法)  i have in my head
 
+------
 
-
-least expressive model() that result in a natural program
+least expressive model that result in a natural program
 with the caveat not to contort the code 
 in the rule of least power
 

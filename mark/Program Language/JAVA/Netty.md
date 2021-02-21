@@ -1,12 +1,12 @@
-### Netty
+## Netty
 
-#### 核心类
+### 核心类
 
 * AbstraBootstrap
 * NiOEventLoop（死循环监听，并处理监听事件）
 * NioEventLoopGroup(管理子线程组)（包含选择器）
 * Channel (封装JAVA Channel)
-* ChannelPipeline（）
+* ChannelPipeline
 * Future， Promise(Netty 的异步结果)
 * Unsafe(真正的处理与Socket之间的交互)
 
@@ -21,18 +21,23 @@
 
 #### Zero copy
 
-***减少数据在用户态和内核态之间的拷贝***
+******
+
+ **核心思想是减少不必要的数据复制**
 
 * Bytebuf直接使用堆外内存进行socket的读写(最大努力选择DirectByteBuffer)
 * Bytebuf进行可以组合和分拆（抽象层面的组合分拆），避免了以往直接内存拷贝的方式来处理。
-* 对文件直接用transferTo 来传输。
+* 对文件直接用transferTo 来传输(减少数据在用户态和内核态之间的拷贝)。
 
-#### TCP粘包分包问题
+
+
+#### 处理TCP粘包分包问题
+
+------
 
 ***主要类***
 
 * LengthFieldBasedFrameDecoder(offset(起始偏移), length(报文长),adjustment（读取的增加长度）,strip(跳过多少字节))
 * FixedLengthFrameDecoder(定长报文)
-* DelimiterBasedFrameDecoder(特殊字符划分，常见的有 \n    \r\n)
+* DelimiterBasedFrameDecoder(特殊字符划分，常见的有 \n , \r\n)
 
-####

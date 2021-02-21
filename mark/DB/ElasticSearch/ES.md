@@ -13,7 +13,7 @@
 
 - 对整个数据集进行数据分段，每个segement一个checkPoint
 
-##### 
+ 
 - 数据在写入document 之后，需要写入更新到segment才能被看到
 
 - 将缓存中的文档写入segment，segment数据输入到os Cache 中并打开segment使之可以被搜索的过程叫做refresh.refresh 默认1s

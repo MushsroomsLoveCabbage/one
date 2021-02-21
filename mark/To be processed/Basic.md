@@ -1,14 +1,14 @@
-1)使用log打印日志时，需要 isDebugEnabled,isInfoEnabled判断。
-  因为使用的话，即使当前系统日志级别高于log级别，不会输出日志，但日志输出内容还是会拼接字符串，即如果直接输出信息则无所谓。
-2)Ctrl+shift+alt+u 展示类关系结构
-  Alt + 7  展示类结构
-  Ctrl+Alt+L : 一键格式化代碼
-  Ctrl + I  实现继承方法
-  Ctrl+shift+BackSpace 返回上一个文件
-  Ctrl+Shift+u 大小写
-  ctrl+alt+t 快速插入代码
-  alt -  ctrl + w  
-3)进入VI后，按/，然后输入字符串，回车，按N或者n是向前向后搜索该字符串
+* 使用log打印日志时，需要 isDebugEnabled,isInfoEnabled判断。
+    因为使用的话，即使当前系统日志级别高于log级别，不会输出日志，但日志输出内容还是会拼接字符串，即如果直接输出信息则无所谓。
+* Ctrl+shift+alt+u 展示类关系结构
+    Alt + 7  展示类结构
+    Ctrl+Alt+L : 一键格式化代碼
+    Ctrl + I  实现继承方法
+    Ctrl+shift+BackSpace 返回上一个文件
+    Ctrl+Shift+u 大小写
+    ctrl+alt+t 快速插入代码
+    alt -  ctrl + w  
+* 进入VI后，按/，然后输入字符串，回车，按N或者n是向前向后搜索该字符串
 
 4)/AEGame/Unity3dM_cn_cn_Server/S340010000/WebRoot/WEB-INF/
 

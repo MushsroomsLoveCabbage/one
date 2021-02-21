@@ -1,4 +1,4 @@
- Exchange Traded Fund
+Exchange Traded Fund
 
 Qualified Domestic Institutional Investor 合格境内机构投资者
 

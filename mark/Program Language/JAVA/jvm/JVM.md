@@ -1,5 +1,5 @@
-### JVM 
-#### 内存模型
+## JVM 
+### 内存模型
 
 JVM基于抽象的逻辑，屏蔽掉不同硬件底层的操作细节实现和差异，保证对内存访问能保证有效一致的机制和规范
 
@@ -7,14 +7,14 @@ JVM基于抽象的逻辑，屏蔽掉不同硬件底层的操作细节实现和�
 * 原子性（synchronize）
 * 有序性（volatile, synchronize）
 
-## java 对象的基本构成
+### java 对象的基本构成
 
 * 对象大小必须是8byte 的倍数 
 * 对象由 对象头（8）+ 指针（4/8）+ 数据 + padding 
 * 数组对象是 对象头（8） + 指针（4/8）+ size(int) + 数据 + padding 
 * 默认开启指针压缩，如果内存超过32G 需要关掉（2 32次方 = 32G 即内存超过了指针标记范围）
 * 对象类数据在编译时候会从大到小排序
-* 对象头（）
+* 对象头 
 * ***linux + JVM*** 
  物理内存  <->  swap (磁盘空间) （当物理内存不够使用时,linux把一部分暂时不用的内存移动到磁盘中 swap）
 （BIN(引导系统)，内核内存（System -> Buffer -> PageCache），用户内存）
@@ -30,8 +30,7 @@ JVM基于抽象的逻辑，屏蔽掉不同硬件底层的操作细节实现和�
 
  动态年龄计算（survivor中某个年龄的存活的占一半，按这个和MaxTenuringThreshold比较取最小值）
 
-
-## CMS
+### CMS
 ***CMS清理过程***
 * init-remark  初始标记（STW）
 * concurrent-mark 并发标记
@@ -42,7 +41,13 @@ JVM基于抽象的逻辑，屏蔽掉不同硬件底层的操作细节实现和�
 * concurrent-reset 并发重置状态
 两次小暂停来解决单次过长的STW
 
-## G1
+##### cms清理带来的问题
+
+* 因为清理并不会停止工作线程，但会占用系统的资源使用，会导致系统的吞吐降低
+* 非STW，导致在清理过程中会产生一些新的垃圾(浮动垃圾)，需要等下次GC 时候清理
+
+### G1
+------
 ***关键词***
 * Region(内存分区)-XX:G1HeapRegionSize<1M-32M> 2的指数
 （大对象会有H（Humongous Object ）标记,大于等于region的一半）
@@ -52,3 +57,11 @@ JVM基于抽象的逻辑，屏蔽掉不同硬件底层的操作细节实现和�
 * RSet(Remembered Set)
 * CSet(Collection Set)
 * Pause Prediction Model
+
+
+
+### Command
+------
+* jps -lvm
+* jstack {pid}
+* jstat -gc {pid}  {timeInterval}  {number}

@@ -3,18 +3,42 @@
 
 #### 操作系统
 
+* CPU
+  * 调度
+  * 切换
+  * 分片
+* 内存
+  * PageCache
+
+* 并发
+  * 信号量
+  * 锁
+  * 栅栏(memory barrier)
+
 		* CPU、内存、数据持久化、并发
 
 #### 网络基础
 
 * 网络分层
+  * 应用层-> 传输层-> 网络层->数据链路层->物理层
+  * 
 * TCP 流量控制（端对端的）与拥塞控制(对整个网络的)
   * [BBR 算法](https://github.com/google/bbr)
 
 #### 数据库基础
+
 ***公共基础***
 
-* 存储、锁、日志、索引.
+* 存储
+* 锁
+  * 行锁
+* 日志
+  * Undo log
+  * 记录操作
+  * 记录结果
+* 索引 
+  * B+ Tree
+  * Hash 
 
 ***具体数据库***
 
@@ -48,15 +72,26 @@
 #### 编程语言
 
 * JAVA
+* GO
+* C
+* PYTHON
 
 #### 中间件
+
+##### 中心
+
+* Zookeeper
+* Nacos
+* 
+
 ***消息中间件***
 
 * [KAFKA](https://github.com/MushsroomsLoveCabbage/one)
+* RocketMQ
 
 #### 工具
 
-* WIRESHARK(网络抓包工具)
+* WIRESHARK(网络抓包工具)SS
 
 #### 推荐书籍&文章
 
