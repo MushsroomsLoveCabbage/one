@@ -1,16 +1,23 @@
-prohibitively 
-scenarios
-unassigned
-virtualization
-concurrency
-persistence
-colume
-Consensus
-Consistency
-Durability
-Heterogeneous 异质
-Discard
-Module
+
+
+* Cumulative 累积的，
+* Vocabulary
+* registry
+* failback
+* prohibitively 
+* scenarios
+* unassigned
+* virtualization
+* concurrency
+* persistence
+* colume
+* Consensus
+* Consistency
+* Durability
+* Heterogeneous 异质
+* Discard
+* Module
+
 #### 20200908
 
 highly customizable(可定制)

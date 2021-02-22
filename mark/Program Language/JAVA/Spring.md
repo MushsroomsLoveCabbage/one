@@ -1,26 +1,45 @@
-## Spring 
-
+## Spring
 ------
+#### 核心思想
+
+- 解耦合 + 分层
+
+#### Design Pattern
+
+- Template    bean的 init  method
+- Proxy   aop
+- Strategy 
+- intercept  chain 
 
 **容器启动原理：**Spring应用的IOC容器通过tomcat的Servlet或Listener监听启动加载；Spring MVC的容器由DispatchServlet作为入口加载；Spring容器是Spring MVC容器的父容器
 
-
-
 ### IOC
 
-#### BeanFactory 
+#### 核心类
 
-* Bean 管理的核心类
+* BeanFactory  Bean 管理的核心类
 
-####  ApplicationContext
+  * **AutowireCapableBeanFactory**  自动注入
 
-* 继承BeanFactory 对类功能进行拓展和延伸
+  * **ConfigurableBeanFactory**   它定义了设置类装载器、属性编辑器、容器初始化后置处理器
+  * **HierarchicalBeanFactory**  父子级联 IoC 容器的接口
+  * **ListableBeanFactory**  
+  * **SingletonBeanRegistry** 缓存已经生成的实例bean
+  * ApplicationContext 继承BeanFactory 对类功能进行拓展和延伸(开发者操作的核心类)
 
-------
+* BeanDefinition 
 
-### AOP
+* BeanDefinitionRegistry
 
-#### 
+#### Bean 生命周期
+
+![](..\..\resource\Spring\SpringBeanLife.jpg)
+
+
+
+#### Bean加载
+
+![](..\..\resource\Spring\SpringBeanLoad.jpg)
 
 ####  ApplicationContextInitializer
 
@@ -28,28 +47,26 @@
   @Order(1) 
   **实现方式**
 
-  * (1) application.addInitializer()
-  * (2) 配置文件 context.initializer.classes = ?,?
-  * (3) META/INF 文件夹下 spring.factories 
+  * application.addInitializer()
+  *  配置文件 context.initializer.classes = ?,?
+  * META/INF 文件夹下 spring.factories 
       org.springframework.context.ApplicationContextInitializer = ?
----
 #### **ApplicationListener**
   * 观察者模式
   * 监听注册事件
----
-#### **ApplicationContext**
-
+#### Spring Event
+```java
   * ContextRefreshedEvent
   * ContextStartedEvent
   * ContextStoppedEvent
   * ContextClosedEvent
   * RequestHandledEvent
-
-### Spring 循环引用的问题
+```
+#### Spring 循环引用的问题
 
 * singleObject（1）
 
-* earlySingleObject（2）
+* earlySingleObject（2） 
 
 * currentlyCreateOject（3）
 
@@ -60,5 +77,9 @@ bean 在构造前会加入到（3）中，构造完，在populate 属性前会�
 A->B->C->A(C中注入的属性对象就是为装配的的A)
 
 
+
+### AOP
+
+------
 
 #### Spring bean 的BeanDefinition
