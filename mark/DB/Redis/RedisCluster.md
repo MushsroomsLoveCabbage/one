@@ -14,19 +14,18 @@
 
 * Redis Cluster  [参考](https://redis.io/topics/cluster-tutorial)
 
-  * 主要地目的
+  * 主要的目的
 
     * **automatically split your dataset among multiple nodes**.
     * **continue operations when a subset of the nodes are experiencing failures**
-
-  * hash
-
-    * The user can force multiple keys to be part of the same hash slot by using a concept called *hash tags*.
-
-    * 16384个槽，key CRC16计算
-
+* hash
+  
+  * The user can force multiple keys to be part of the same hash slot by using a concept called *hash tags*.
+  
+  * 16384个槽，key CRC16计算
   * **node timeout**.
-
+* gossip通信
+  
 * Codis
 
 * Twitterproxy

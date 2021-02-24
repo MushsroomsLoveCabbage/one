@@ -14,7 +14,6 @@
 ***Total Order***
 
 - 时间戳，来给所有操作排序。在分布式环境下，不考虑代价的情况下，例如google 的spanner
-- 
 
 ***Linearizability Consistency***
 
@@ -35,7 +34,7 @@
 
 ***Causal Consistency***
 
-- 
+
 
 分布式数据库的commit ->atomic commit
 non blocking Weak Atomic Commitment = Consensus = uniform consensus
@@ -57,8 +56,6 @@ Atomic commit
 ***Sequential Consistency***
 
 - the result of any execution is the same as if the operations of all the processors were executed in some sequential order, and the operations of each individual processor appear in this sequence in the order specified by its program
-
-#### 
 
 ***Patterns, Principles, and Practices of Domain-Driven Design***
 

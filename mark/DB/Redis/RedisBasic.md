@@ -2,9 +2,7 @@
 
 #### 高性能和省内存始终都是应用Redis要关注的重点
 
-------
-
-#### 主从数据同步
+#### 1.主从数据同步
 
 ##### COW(Copy On Write(Linux 的特性))
 
@@ -53,11 +51,36 @@ end
 
 - repl_backlog_size
 
-#### 命令
+#### Command
 
-- OBJECT ENCODING {key} 查看编码
+```c
+object encoding <key> 编码格式
+       freq <key> 获取频率
+       ldletime <key> 空闲时间
+       refcount <key>  value 的引用计数
+```
 
-#### 数据结构
+#### 2.数据过期处理
+
+##### 2.1过期策略
+
+* 定期淘汰 (默认100ms 抓取部分设置过期时间数据，判断是否过期，过期则删除)
+* 惰性淘汰 (在取值的时候判断是否过期，过期则删除)
+
+##### 2.2淘汰机制
+
+* noeviction: 当内存不足以容纳新写入数据时，新写入操作会报错。
+* **allkeys-lru**：当内存不足以容纳新写入数据时，在**键空间**中，移除最近最少使用的 key（这个是**最常用**的）。
+* allkeys-random：当内存不足以容纳新写入数据时，在**键空间**中，随机移除某个 key，这个一般没人用吧，为啥要随机，肯定是把最近最少使用的 key 给干掉啊。
+* volatile-lru：当内存不足以容纳新写入数据时，在**设置了过期时间的键空间**中，移除最近最少使用的 key（这个一般不太合适）。
+* volatile-random：当内存不足以容纳新写入数据时，在**设置了过期时间的键空间**中，**随机移除**某个 key。
+* volatile-ttl：当内存不足以容纳新写入数据时，在**设置了过期时间的键空间**中，有**更早过期时间**的 key 优先移除。
+
+#### 3.数据
+
+#### 3.1数据结构
+
+* 数据类型的不同编码是节省内存核心之一
 
 | 基本数据类型 | 底层编码类型 | 特点                   |                                     |
 | ------------ | ------------ | ---------------------- | ----------------------------------- |
@@ -85,25 +108,37 @@ end
 | 32                 | 9               |
 | 64                 | 17              |
 
-整数共享对象在LRU 和 Ziplist 两种情况下会失效
+* 整数共享对象在LRU 和 Ziplist 两种情况下会失效
 
 #### 数据结构实现
 
 ```c
 typedef struct redisObject{
-     //类型
-     unsigned type:4;
-     //编码
-     unsigned encoding:4;
-     //指向底层数据结构的指针
-     void *ptr;
-     //引用计数
-     int refcount;
-     //记录最后一次被程序访问的时间
-     unsigned lru:22;
- 
-}robj
+    //类型 4 byte (string, list, set, zset, hash)
+    unsigned type:4;
+    //编码 4 byte (ziplist, skiplist,)
+    unsigned encoding:4;
+    //lru 时间, 24字节
+    unsigned lru:LRU_BITS;
+    //引用计数 (引用计数为0才会被真正删除)，redis 本身对 0-10000中的数字进行池化复用
+    int refcount; 
+    //数据指针
+    void *ptr
+} robj;
 
+typedef struct redisDb {
+    // 一个数据库，就是一个kv字典，查找出 k 后，才能确定其数据类型 如 string, hash, list, set, zset
+    dict *dict;                 /* The keyspace for this DB */
+    // 过期数据队列
+    dict *expires;              /* Timeout of keys with a timeout set */
+    dict *blocking_keys;        /* Keys with clients waiting for data (BLPOP) */
+    dict *ready_keys;           /* Blocked keys that received a PUSH */
+    dict *watched_keys;         /* WATCHED keys for MULTI/EXEC CAS */
+    struct evictionPoolEntry *eviction_pool;    /* Eviction pool of keys */
+    // 数据库号, 默认是 16, 如果想支持更多数据库号，改外部db数组大小，增大这个值就可以了
+    int id;                     /* Database ID */
+    long long avg_ttl;          /* Average TTL, just for stats */
+} redisDb;
 //SDS
 struct sdshdr{
      //记录buf数组中已使用字节的数量
@@ -301,7 +336,7 @@ typedef struct quicklist {
 
 ```
 
-#### Redis 命令协议（REdis Serialization Protocol）
+#### Redis 命令协议（Redis Serialization Protocol）
 
 - **命令**：这就是针对不同数据类型的操作命令。例如对String类型的SET、GET操作，对Hash类型的HSET、HGET等，这些命令就是代表操作语义的字符串。
 

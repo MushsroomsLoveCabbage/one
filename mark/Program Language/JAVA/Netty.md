@@ -15,9 +15,9 @@
 * 初始->绑定->注册
 * NioEventLoop.run()->selector->process(注册完交给子EventLoop)
 
-![channelpipeline.jpg](https://cdn.jsdelivr.net/gh/clawhub/image/diffuser/blog/19/11/29/060b6337573afd1d8ba11b8c73b0712b.jpg)
+![channelpipeline.jpg](..\..\resource\Netty\NettyChannel.jpg)
 
-![服务端 Netty Reactor 工作架构图.jpg](https://user-gold-cdn.xitu.io/2019/12/5/16ed52a8f4638f4d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![服务端 Netty Reactor 工作架构图.jpg](..\..\resource\Netty\NettyCore.jpg)
 
 #### Zero copy
 

@@ -1,15 +1,19 @@
-### 应用层
+### 1.应用层
 ------
-#### HTTP
+#### 1.1 HTTP
 
-* 
 * SSL（Secure Sockets Layer）及其继任者传输层安全（Transport Layer Security，TLS） 是为网络通信提供安全及数据完整性的一种安全协议。TLS与SSL在传输层对网络连接进行加密。
 
-#### DNS
+##### 1.1.1 REST
+
+* REST即表述性状态传递（英文：Representational State Transfer，简称REST）
+* 核心是操作资源(数据和表现形式组合)
+
+#### 1.2 DNS
 
 * 
 
-#### CDN
+#### 1.3 CDN
 
 * 
 
