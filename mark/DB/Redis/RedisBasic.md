@@ -43,6 +43,7 @@ end
 - 复制缓冲区用于在从节点全量同步时候，存储复制期间主节点处理的的新的命令
 - 复制缓冲区积压溢出，会导致连接关闭，然后重新开始全量同步
 - client-output-buffer-limit slave  配合缓冲区大小
+- 在同步过程中 如果修改操作超出复制缓冲区 buffer 会发生溢出，导致全量同步失败
 
 ##### 复制积压缓冲区
 
@@ -139,7 +140,7 @@ typedef struct redisDb {
     int id;                     /* Database ID */
     long long avg_ttl;          /* Average TTL, just for stats */
 } redisDb;
-//SDS
+//SDS Simple Dynamic String
 struct sdshdr{
      //记录buf数组中已使用字节的数量
      //等于 SDS 保存字符串的长度

@@ -1,28 +1,18 @@
 ### Kafka
 
-#### Key word
+#### 1.Key word
 
-- consumer
-
-- provider
-
-- consumer offset
-
-- consumer Group
-
-- Rebalance
-
-- Topic
-
-- partition
-
-- Replica
-
-- record (binary )
-
-- offset
-
-  [参考图](http://geek.ft.com/#/column/191?aid=99318)
+|                          |      |
+| ------------------------ | ---- |
+| consumer、consumer Group |      |
+| provider                 |      |
+| Broker                   |      |
+| Topic                    |      |
+| Partition                |      |
+| Rebalance                |      |
+| Replica/slave/master     |      |
+| offset、consumer offset  |      |
+| record (binary)          |      |
 
 ##### Kafka
 
@@ -34,6 +24,7 @@
 
 - 顺序读写，
 - 网络带宽占满70%就会出现丢包情况。
+- zero copy 体现在consumer上,broker直接向网卡复制数据，无需经过应用内核
 
 #### KAFKA 集群参数
 
@@ -165,3 +156,23 @@ try {
 ```
 
 - (参考文档)[https://cloud.tencent.com/developer/article/1430986]
+
+#### 源码阅读
+
+- Core 包 
+  - log
+  - controller
+  - coordinator包下group包
+  - network,server
+- KafkaApis (broker顶端入口)
+- Client包
+  - **org.apache.kafka.common.record**。这个包下面是各种Kafka消息实体类
+  - **org.apache.kafka.common.network。** 你重点关注下Selector、KafkaChannel就好了，尤其是前者，它们是实现Client和Broker之间网络传输的重要机制。如果你完全搞懂了这个包下的Java代码，Kafka的很多网络异常问题也就迎刃而解了。
+  - **org.apache.kafka.clients.producer**它是Producer的代码实现包，里面的Java类很多，你可以重点看看KafkaProducer、Sender和RecordAccumulator这几个类。
+  - **org.apache.kafka.clients.consumer包。**它是Consumer的代码实现包。同样地，我推荐你重点阅读KafkaConsumer、AbstractCoordinator和Fetcher这几个Java文件
+
+#### 参考资料
+
+* https://www.cnblogs.com/huxi2b/
+* https://www.confluent.io/blog/ 
+

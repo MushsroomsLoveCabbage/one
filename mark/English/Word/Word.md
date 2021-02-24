@@ -1,4 +1,5 @@
-
+- **supervised**  被监督的
+- **facilities** 设施
 
 * Cumulative 累积的，
 * Vocabulary

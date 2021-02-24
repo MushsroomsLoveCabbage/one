@@ -1,13 +1,3 @@
-#### Redis 基于源码层的理解
-
-##### 系统初始化
-
-- 设置回调（在系统进程被Kill时触发）
-- 加载配置
-- 启动服务
-- 监听端口
-- 初始化相关资源和线程池等
-
 
 
 #### 关键对象
@@ -45,22 +35,7 @@ typedef struct redisDb {
 #### SDS
 
 ```
-Simple Dynamic String
-byte[] dataArray
-int length
-
-```
 
 
-
-#### 数据的删除处理主要有两种，一个是DEL命令的删除，一个是过期数据的删除
-
-#### Command
-
-```c
-object encoding <key> 编码格式
-       freq <key> 获取频率
-       ldletime <key> 空闲时间
-       refcount <key>  value 的引用计数
 ```
 
