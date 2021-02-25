@@ -1,4 +1,7 @@
-
+- **supervised**  被监督的
+- rhythm 节奏
+- explicitly  明确地；明白地
+- **facilities** 设施
 
 * Cumulative 累积的，
 * Vocabulary

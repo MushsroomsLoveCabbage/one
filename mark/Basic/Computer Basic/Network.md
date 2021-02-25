@@ -1,4 +1,40 @@
+## 网络
+
+#### 1.网络图谱
+
+- https://static001.geekbang.org/resource/image/79/aa/79adec391c62b8cf90c210804b704daa.jpg
+- MAC地址是工作在一个局域网中，核心是在局域网内确定唯一设备（局域网内多个设备共享一个ip地址）
+- Linux 默认的逻辑是非同网段的调用，数据包是发给网关的。
+- **动态主机配置协议（Dynamic Host Configuration Protocol）DHCP**。新加入的主机同过这个来申请自己的IP地址。
+
+### Protocol
+
+#### 核心要素
+
+- 约定
+- 格式
+
+#### 主要协议
+
+- HTTP, HTTPS, DNS, HTTP DNS (优化DNS的缓存刷新不及时问题),CDN
+- TCP/UDP
+- IP,ICMP,OSPF,BGP,IPSec,GRE
+
+##### UDP
+
+- Quick UDP Internet Connections 
+
+
+
+#### Socket
+
+- TCP协议是基于数据流的，所以设置为SOCK_STREAM，而UDP是基于数据报的，因而设置为SOCK_DGRAM
+
+- Epoll 
+  - 注册Callbacl回调函数来处理
+
 ### 1.应用层
+
 ------
 #### 1.1 HTTP
 
@@ -11,7 +47,11 @@
 
 #### 1.2 DNS
 
-* 
+##### 1.2.1) 负载策略
+
+* weight round robin
+* latency-based
+* geolocation-based
 
 #### 1.3 CDN
 

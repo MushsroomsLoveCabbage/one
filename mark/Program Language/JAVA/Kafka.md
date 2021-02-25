@@ -58,6 +58,32 @@
 
 -------
 
+### 1. 总体认知
+
+- 顺序读写，
+- 网络带宽占满70%就会出现丢包情况。
+- zero copy 体现在consumer上,broker直接向网卡复制数据，无需经过应用内核
+
+### 2. Key word
+
+| 关键词                   | 作用 |
+| ------------------------ | ---- |
+| consumer、consumer Group |      |
+| provider                 |      |
+| Broker                   |      |
+| Topic                    |      |
+| Partition                |      |
+| Rebalance                |      |
+| Replica/slave/master     |      |
+| offset、consumer offset  |      |
+| record (binary)          |      |
+
+
+
+#### 3. KAFKA 参数
+
+##### 3.1）集群参数
+
 - log.dirs  这是非常重要的参数，指定了Broker需要使用的若干个文件目录路径。要知道这个参数是没有默认值的，这说明什么？这说明它必须由你亲自指定。
 - `zookeeper.connect zk1:2181,zk2:2181,zk3:2181/kafka1`和`zk1:2181,zk2:2181,zk3:2181/kafka2`
 - `auto.create.topics.enable`：是否允许自动创建Topic。 false 
@@ -78,11 +104,22 @@ bin/kafka-topics.sh--bootstrap-serverlocalhost:9092--create--topictransaction--p
 bin/kafka-configs.sh--zookeeperlocalhost:2181--entity-typetopics--entity-nametransaction--alter--add-configmax.message.bytes=10485760
 ```
 
-##### 操作系统参数
+##### 3.2) 操作系统参数
 
-ulimit -u  
+* ulimit -u  
 
-文件系统 zfs>xfs>ext4>ext3
+* 文件系统 zfs>xfs>ext4>ext3
+
+### 5.kafka 核心流程
+
+##### 5.1 producer 连接Broker流程
+
+* 根据配置文件信息，连接所有的Broker
+* 消息直接给具体的主Partition
+
+##### 5.2 consumer连接流程
+
+* 根据配置文件信息，连接所有的Broker，上传指定消费的Topic Partition
 
 #### kafka客户端实现
 
@@ -140,6 +177,7 @@ kafka 实现excatly once
 - 每次重平衡时候都需要成员重新入组
 
 ##### 副本间的同步如何实现
+
 * kafka 为leader 和每个replica 记录一个高水位和LEO 标记，用来标记已经被提交的消息偏移和最大接收偏移，
 * replica 在`拉取`数据时候向leader提交自己的LEO，以此leader 来更新自身的高水位。
 * 同时replica 依据数据来更新自己的LEO
@@ -150,13 +188,42 @@ kafka 实现excatly once
 - Leader epoch <version, offset> 
 - follwer 在重启之后根据leader epoch 来更新自己的HW 和处理是否数据截断，
 
-### 消息保证（Producer 端，Consumer 端需要自己保证）
+------
 
-##### At most once
+#### Rebalance
 
-##### At least Once
+##### 发生的时机有三个
 
-##### Exactly Once Semantics 
+- 组成员数量发生变化
+  - 需要避免消费太慢被误踢出
+  - max.poll.records
+  - max.poll.interval.ms（消费不完主动离开）
+  - 系统GC 
+- 订阅主题数量发生变化
+- 订阅主题的分区数发生变化
+
+#### Coordinator
+
+##### Consumer
+
+- consumer 启动先发送findcoordinator 获取broker,然后与broker 建立连接
+
+##### Producer
+
+- KafkaProducer实例创建时启动Sender线程，从而创建与bootstrap.servers中所有Broker的TCP连接。
+- KafkaProducer实例首次更新元数据信息之后，还会再次创建与集群中所有Broker的TCP连接。
+- 如果Producer端发送消息到某台Broker时发现没有与该Broker的TCP连接，那么也会立即创建连接。
+- 如果设置Producer端connections.max.idle.ms参数大于0，则步骤1中创建的TCP连接会被自动关闭；如果设置该参数=-1，那么步骤1中创建的TCP连接将无法被关闭，从而成为“僵尸”连接。
+
+### 5.消息保证（Producer 端，Consumer 端需要自己保证）
+
+------
+
+##### 5.1）At most once
+
+##### 5.2）At least Once
+
+##### 5.3）Exactly Once Semantics 
 
 - Idempotent Producer：Exactly-once，in-order，delivery per partition；
 - Transactions：Atomic writes across partitions；
@@ -184,4 +251,54 @@ try {
 ```
 
 - (参考文档)[https://cloud.tencent.com/developer/article/1430986]
+
+### 7.kafka 优化改造
+
+------
+
+**参考文章**
+
+[**美团kafka改造**](https://tech.meituan.com/2021/01/14/kafka-ssd.html )
+
+##### 问题
+
+- I/O线程统一将请求中的数据写入到操作系统的PageCache后立即返回,当消息条数到达一定阈值后，Kafka应用本身或操作系统内核会触发强制刷盘操作。当存在consumer 实例消费慢，导致请求的数据已经落盘，会导致因缺页而依据LRU策略刷部分数据磁盘中，导致现有的主要线程消费的数据不在pagecache->往复导致吞吐降低
+
+##### 处理方式
+
+- FlashCache
+- Kafka层改造
+  - 增加SSD作为缓存
+  - 依据数据消息偏移量，来减少非热点数据读刷到SSD。
+  - 非缓存的数据直接从HDD中获取
+  - LogSegment，后台线程定期把inactive的写到SSD
+
+#### 源码阅读
+
+------
+
+
+
+- Core 包 
+  - log
+  - controller
+  - coordinator包下group包
+  - network,server
+- KafkaApis (broker顶端入口)
+- Client包
+  - **org.apache.kafka.common.record**。这个包下面是各种Kafka消息实体类
+  - **org.apache.kafka.common.network。** 你重点关注下Selector、KafkaChannel就好了，尤其是前者，它们是实现Client和Broker之间网络传输的重要机制。如果你完全搞懂了这个包下的Java代码，Kafka的很多网络异常问题也就迎刃而解了。
+  - **org.apache.kafka.clients.producer**它是Producer的代码实现包，里面的Java类很多，你可以重点看看KafkaProducer、Sender和RecordAccumulator这几个类。
+  - **org.apache.kafka.clients.consumer包。**它是Consumer的代码实现包。同样地，我推荐你重点阅读KafkaConsumer、AbstractCoordinator和Fetcher这几个Java文件
+
+#### 10.使用场景
+
+- 框架内的精准一次处理语义 
+- [Kafka作分布式存储](https://www.confluent.io/blog/okay-store-data-apache-kafka/)
+- kafka 作为小型的流处理系统。适用于低需求
+
+#### 12.参考资料
+
+* https://www.cnblogs.com/huxi2b/
+* https://www.confluent.io/blog/ 
 

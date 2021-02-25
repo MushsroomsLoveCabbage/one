@@ -108,3 +108,50 @@ netstat -an -p tcp | find "127.0.0.1" | find  "2112"
 netstat -an |find  ":80" 
 
 
+
+
+
+Horizontal Scaling
+hierarchy
+Vertical Scaling
+Cacheing
+Loading Balancing
+Database replication
+Database partitioning
+
+performance vs scalability
+Latency vs Scalability
+Availability vs Scalability
+
+A service is scalable if it results in increased performance in a manner proportional(成比例的) to resources added.
+
+aim for maximal throughput with acceptable latency.
+
+Fail-over adds more hardware and additional complexity.
+
+hierarchical
+
+
+verify service integrity
+
+benchmark and profile to simulate and uncover bottlenecks
+
+efficient retrieval of key ranges
+
+Don't focus on nitty gritty details for the following articles, instead:
+
+Identify shared principles, common technologies, and patterns within these articles
+Study what problems are solved by each component, where it works, where it doesn't
+Review the lessons learned
+
+http://dancres.github.io/Pages/
+
+semi structure
+
+
+video works
+video format
+
+adaptive bitrate streaming
+multiple rendition 
+以一定条件分割文件,推送数据流时候按segment推送，manifest头文件信息里包括文件的大小，数据流的格式

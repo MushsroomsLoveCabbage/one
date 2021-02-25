@@ -9,6 +9,7 @@
 * ChannelPipeline
 * Future， Promise(Netty 的异步结果)
 * Unsafe(真正的处理与Socket之间的交互)
+* ByteBuf
 
 ### 初始化
 
@@ -42,3 +43,43 @@
 * LengthFieldBasedFrameDecoder(offset(起始偏移), length(报文长),adjustment（读取的增加长度）,strip(跳过多少字节))
 * FixedLengthFrameDecoder(定长报文)
 * DelimiterBasedFrameDecoder(特殊字符划分，常见的有 \n , \r\n)
+
+
+
+
+
+#### ByteBuf
+
+- 堆内(pooled, unpooled)，堆外(底层IO使用)
+
+- 重要属性
+  - limit，position，capacity
+
+```java
+//读取数据
+AbstractNioByteChannel.read()
+```
+
+[Netty 参考资料](https://www.infoq.cn/article/netty-high-performance/)
+
+- duplicate()，slice()等等生成的派生缓冲区ByteBuf会共享原生缓冲区的内部存储区域。此外，派生缓冲区并没有自己独立的引用计数而需要共享原生缓冲区的引用计数。也就是说，当我们需要将派生缓冲区传入下一个组件时，一定要注意先调用retain()方法。Netty的编解码处理器中，正是使用了这样的方法。
+
+  ```java
+  ByteBuf parent = ctx.alloc().directBuffer(512);
+  parent.writeBytes(...);
+  
+  try {
+      while (parent.isReadable(16)) {
+          ByteBuf derived = parent.readSlice(16);
+          derived.retain();   // 一定要先增加引用计数
+          process(derived);   // 传递给下一个组件
+      }
+  } finally {
+      parent.release();   // 原生缓冲区释放
+  }
+  ...
+  public void process(ByteBuf buf) {
+      ...
+      buf.release();  // 派生缓冲区释放
+  } 
+  ```
