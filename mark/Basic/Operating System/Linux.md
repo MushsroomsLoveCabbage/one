@@ -6,6 +6,7 @@
 
 - lsof -i:{port}
 - netstat -tunlp|grep {port}
+- ip addr /  ifconfig 
 
 #### 2.CPU上下文切换 (Core Processor Unit)
 

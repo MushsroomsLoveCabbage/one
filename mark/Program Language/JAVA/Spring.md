@@ -43,8 +43,6 @@
 
 ###### 2.2.1
 
-* 
-
 ![](..\..\resource\Spring\SpringBeanLife.jpg)
 
 ##### 2.3 Bean加载

@@ -1,14 +1,17 @@
 ## 基础知识点
 
-### Concurrent
+### 6.Concurrent
 
 ------
 
-#### Synchronized
+#### 6.1 Lock
 
-- 重量级锁，优化到性能与ReentrantLock相差无几
+- Synchronized 重量级锁，优化到性能与ReentrantLock相差无几
+- 可重入锁
+- 自旋锁
+- 偏向锁
 
-#### Volatile
+#### 6.2 Volatile
 
 - JMM
 - 内存屏障
@@ -41,7 +44,7 @@
     }
 ```
 
-#### AbstractQueuedSynchronizer
+#### 6.3 AbstractQueuedSynchronizer
 
 - CAS 操作
 - Node 节点链表
@@ -49,13 +52,15 @@
 - 一直循环获取
 - state
 
-#### CAS 
+#### 6.4 CAS 
 
 - 比较预期值，符合就改变，不符合就失败
+
 - ABA 问题 -> 加版本号处理
+
 - 无锁
 
-  #### CountDownLatch, CyclicBarrier, Semaphore
+#### 6.5 CountDownLatch, CyclicBarrier, Semaphore
 
   ```java
   //  CyclicBarrier一般用于一组线程互相等待至某个状态，然后这一组线程再同时执行；而CyclicBarrier是可以重用的。
@@ -177,7 +182,3 @@
           }
       }
   ```
-
-#### 为什么使用char[] 记录密码而不是使用String 
-
-* 虽然String 的实现是基于 char[]，但是由于String 的不可变性。导致在使用过后，对象在回收前依旧有可能被人拿到（内存快照），而char[]在使用后直接都置0，就可以避免这类问题。
