@@ -1,41 +1,62 @@
-### Kafka
+## Kafka
 
-#### Key word
+### 1. Key word
 
-- consumer
+| **名词**                | **解释**                                                     |
+| ----------------------- | ------------------------------------------------------------ |
+| Producer                | 消息的生成者                                                 |
+| Consumer                | 消息的消费者                                                 |
+| ConsumerGroup           | 消费者组，可以并行消费Topic中的partition的消息               |
+| Broker                  | 缓存代理,管理连接和消息的转发                                |
+| Topic                   | Kafka处理资源的消息源(feeds of messages)的不同分类           |
+| Partition               | Topic物理上的分组，一个topic可以分为多个partion,每个partion是一个有序的队列。partion中每条消息都会被分配一个有序的Id(offset) |
+| Message                 | 消息，是通信的基本单位。                                     |
+| Offset                  | 消息的偏移                                                   |
+| Consumers               | 重平衡                                                       |
+| Leader/follower/Replica | 这几个概念都是针对的partition                                |
+|                         |                                                              |
+|                         |                                                              |
+|                         |                                                              |
 
-- provider
-
-- consumer offset
-
-- consumer Group
-
-- Rebalance
-
-- Topic
-
-- partition
-
-- Replica
-
-- record (binary )
-
-- offset
-
-  [参考图](http://geek.ft.com/#/column/191?aid=99318)
-
-##### Kafka
+##### 特性和场景
 
 - 框架内的精准一次处理语义 
 - [Kafka作分布式存储](https://www.confluent.io/blog/okay-store-data-apache-kafka/)
 - kafka 作为小型的流处理系统。适用于低需求
+- 顺序读, zero Copy, 批量压缩
+  * 在写入数据时，按顺序写入到磁盘文件中
 
-#### 基本点
+  * 写入并非直接写入，而是使用mmap(Memory Mapped Files)接口.
 
-- 顺序读写，
+    ```c
+    //mmap 内存映射机制
+    //日常读取文件都是需要从文件中读取文件到内核缓冲区，在复制到用户空间。写入时候也是先写入到内核缓冲区再写入到磁盘文件。
+    //mmap 直接在内核中分配内存空间映射整个文件，无需再进行缓冲区的IO的多次往复读取写写入。
+    
+    void  *mmap(void  *start,  size_t length,  int prot,  int flags,  int fd,  off_t offsize)
+    int  munmap(void *start,   size_t length) 
+    ```
+
+    
+
+- `producer.type`控制写入时候是否每次都flush 
+
 - 网络带宽占满70%就会出现丢包情况。
 
-#### KAFKA 集群参数
+### 2.核心流程
+
+-------
+#### 2.1 选举主broker?
+
+#### 2.2 踢出broker?
+
+#### 2.3 replica 复制数据
+
+#### 2.4 集群的消息的分发
+
+### 3. KAFKA 集群参数
+
+-------
 
 - log.dirs  这是非常重要的参数，指定了Broker需要使用的若干个文件目录路径。要知道这个参数是没有默认值的，这说明什么？这说明它必须由你亲自指定。
 - `zookeeper.connect zk1:2181,zk2:2181,zk3:2181/kafka1`和`zk1:2181,zk2:2181,zk3:2181/kafka2`
@@ -49,8 +70,6 @@
 - `message.max.bytes`：控制Broker能够接收的最大消息大小。
 - `retention.ms`：规定了该Topic消息被保存的时长。默认是7天，即该Topic只保存最近7天的消息。一旦设置了这个值，它会覆盖掉Broker端的全局参数值。
 - `retention.bytes`：规定了要为该Topic预留多大的磁盘空间。和全局参数作用相似，这个值通常在多租户的Kafka集群中会有用武之地。当前默认值是-1，表示可以无限使用磁盘空间。
-
-
 
 ```shell
 创建topic
@@ -101,7 +120,7 @@ kafka 实现excatly once
 
 - 每个Broker 上都有控制器，应用启动是抢注册
 - 支持failover 机制
-- **rmr /controller**（碰到broker卡死等问题可以在zookeeper 上删除controller 来实现快速的恢复）
+- **`rmr /controller`**（碰到broker卡死等问题可以在zookeeper 上删除controller 来实现快速的恢复）
 
 ##### 消费者组重平衡
 
@@ -122,7 +141,7 @@ kafka 实现excatly once
 
 ##### 副本间的同步如何实现
 * kafka 为leader 和每个replica 记录一个高水位和LEO 标记，用来标记已经被提交的消息偏移和最大接收偏移，
-* replica 在拉取数据时候向leader提交自己的LEO，以此leader 来更新自身的高水位。
+* replica 在`拉取`数据时候向leader提交自己的LEO，以此leader 来更新自身的高水位。
 * 同时replica 依据数据来更新自己的LEO
 * Leader epoch
 #### HW + leader epoch
@@ -165,3 +184,4 @@ try {
 ```
 
 - (参考文档)[https://cloud.tencent.com/developer/article/1430986]
+
