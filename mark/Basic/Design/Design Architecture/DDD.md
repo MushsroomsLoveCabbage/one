@@ -1,9 +1,16 @@
-#### DDD(Domain Driver Design)
+### DDD(Domain Driver Design)
 
-##### 个人认知
+##### 1.个人认知
 
 * 这是一种对于客观世界的问题处理的一种方法论，仅提供思想指导。实际应用过程中在完整分析问题的基础上尽可能的拆分问题，并将子问题分类组合。
+
 * 模棱两可的情况，不可为了拆分而拆分，还是要考虑到实际其他因素。（系统的合理设计就是要在人对客观世界的一种完整的细致的认知上建立，这包括了抽象概括，领域分层等思想，但由于没有人可以把握住所有的细节，所以在实际当中需要避免刻意的执行上诉的思想）
+
+* ***Patterns, Principles, and Practices of Domain-Driven Design***
+
+  - If your application is completely data-centric and truly qualifies for a pure CRUD solution. where every operation is basically a simple database query to Create, Read, Update, or Delete.you don’t need DDD.
+
+  
 
 ##### 相关架构思想
 
@@ -18,7 +25,7 @@
 * 接口层
 * 应用层
 * 领域（Domain(对象和域值（类似于字典数据这种基础数据）)）
-* 基础层（）
+* 基础层（）  
 
 ![img](https://user-gold-cdn.xitu.io/2020/2/17/17051d0c6c4677c2?imageslim)
 
@@ -26,7 +33,5 @@
 
 * 对业务领域进行细分，拆分到不可拆分的地步。
 * 上层只依赖下一层，不能同层跨层调用。
-
-
 
 * 我们不能避免问题的复杂性，但是我们可以对复杂的问题进行控制

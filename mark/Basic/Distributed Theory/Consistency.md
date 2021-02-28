@@ -1,3 +1,7 @@
+### Consistency
+
+#### 1. 总体
+
 ***Consistency 要求的是对多个节点相同对象的值相同，而非正确的***
 
 ***Strong Consistency***
@@ -8,8 +12,6 @@
 ***Weak Consistency***
 
 - for when the fast access requirement dominates
-
-
 
 ***Total Order***
 
@@ -56,8 +58,4 @@ Atomic commit
 ***Sequential Consistency***
 
 - the result of any execution is the same as if the operations of all the processors were executed in some sequential order, and the operations of each individual processor appear in this sequence in the order specified by its program
-
-***Patterns, Principles, and Practices of Domain-Driven Design***
-
-- If your application is completely data-centric and truly qualifies for a pure CRUD solution. where every operation is basically a simple database query to Create, Read, Update, or Delete.you don’t need DDD.
 

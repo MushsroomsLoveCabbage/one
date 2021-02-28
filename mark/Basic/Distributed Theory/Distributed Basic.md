@@ -16,6 +16,8 @@
 - 计算，存储，通信，资源池化
 - 协同，调度，追踪与高可用，部署
 
+
+
 #### 2. 分布式协调与同步
 
 - 互斥（集中式（引入协调者），分布式，令牌环）
@@ -26,16 +28,22 @@
   - redis setnx
   - zookeeper  临时节点，临时顺序节点
 
+
+
 #### 3. 分布式通信
 
 - 远程调用
 - 发布订阅
 - 消息队列
 
+
+
 #### 4. 分布式存储
 
 - CAP
-- Rehah
+- Rehash
+
+
 
 #### 5. 分布式高可用
 
@@ -44,24 +52,24 @@
 - 降级
 - 故障恢复
 
+
+
 #### 6. Distributed Consensus 
 
 ------
 
-##### Consensus Algorithm
+##### 6.1 Consensus Algorithm
 
 - **Raft**
-
-  - Leader, Candidate, follower
+- Leader, Candidate, follower
   - Leader 有任期（term）
   - 获得选票最多的为Leader
-
-- Bully
-
-  - election message, alive message(ack election), victory message
-
-  - 让ID更大的为Leader
-
+  
+- **Bully**
+- election message, alive message(ack election), victory message
+  
+- 让ID更大的为Leader
+  
 - **Raft ***
 
 - **paxos**
@@ -73,9 +81,8 @@
   - <epoch, vote_id,vote_zxID>
   - 数据最新或者ID最大的为Leader
 
-  
 
-#### 6.参考资料
+#### 7.参考资料
 
 - https://www.safaribooksonline.com/videos/distributed-systems-in/9781491924914、
 - https://youtu.be/Y6Ev8GIlbxc

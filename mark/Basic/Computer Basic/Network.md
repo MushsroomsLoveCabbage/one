@@ -7,40 +7,33 @@
 - Linux 默认的逻辑是非同网段的调用，数据包是发给网关的。
 - **动态主机配置协议（Dynamic Host Configuration Protocol）DHCP**。新加入的主机同过这个来申请自己的IP地址。
 
-### Protocol
+#### 2.Protocol
 
-#### 核心要素
+##### 2.1 核心要素
 
 - 约定
 - 格式
 
-#### 主要协议
+##### 2.2 主要协议
 
 - HTTP, HTTPS, DNS, HTTP DNS (优化DNS的缓存刷新不及时问题),CDN
 - TCP/UDP
 - IP,ICMP,OSPF,BGP,IPSec,GRE
 
-##### UDP
-
-- Quick UDP Internet Connections 
 
 
-
-#### Socket
-
-- TCP协议是基于数据流的，所以设置为SOCK_STREAM，而UDP是基于数据报的，因而设置为SOCK_DGRAM
-
-- Epoll 
-  - 注册Callbacl回调函数来处理
+- - 
 
 ### 1.应用层
 
 ------
 #### 1.1 HTTP
 
+##### 1.1.1 SSL
+
 * SSL（Secure Sockets Layer）及其继任者传输层安全（Transport Layer Security，TLS） 是为网络通信提供安全及数据完整性的一种安全协议。TLS与SSL在传输层对网络连接进行加密。
 
-##### 1.1.1 REST
+##### 1.1.2 REST
 
 * REST即表述性状态传递（英文：Representational State Transfer，简称REST）
 * 核心是操作资源(数据和表现形式组合)
@@ -57,7 +50,7 @@
 
 * 
 
-### 传输层
+### 4. 传输层
 ------
 #### TCP
 
@@ -97,6 +90,8 @@
 
 * UDP的时间数据长度会比理论值小，因为受限于系统的实现
 
+* Quick UDP Internet Connections 
+
 ### 网络层
 
 ------
@@ -104,6 +99,4 @@
 #### IP
 
 #### ICMP
-
-#### 
 

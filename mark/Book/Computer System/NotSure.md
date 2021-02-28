@@ -1,30 +1,9 @@
 ## linux 
 
-### Command
-
-- ```shell
-  d rwx r-x r-x 6  
-  - rwx r-x r-x 1
-  
-  ```
-
-$$
-P = 2^P
-$$
-
-进程间通信可以用消息队列，大消息可以用共享内存的方式(不同的虚拟内存地址，相同的物理内存地址)(需要semaphore)
 
 
 
-IO 读取
 
-打开一个文件描述符 
-
-ulimit 
-
-默认 0,1,2
-
-带缓冲区 与无缓冲区
 
 
 
@@ -36,25 +15,11 @@ ulimit
 
 - V-node 表
 
-  ```C
-  
-  ```
-
-segment 段
+  segment 段
 
 segment descriptors -> Global Descriptor Table
 
-32G = 4K * 1024 * 1024 * 8 * 4
-    = 4K * 4K * 4K * 32
-	
-PTE 64 * 64 * 64 * 32 
 
-4 byte
-
-16 16
-
-4M 1K*4K
-1K 
 
 Dynamic Memory Allocator
 each processor have brk 变量指向堆顶

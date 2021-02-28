@@ -2,11 +2,12 @@
 
 #### 1.常见监控
 
-* pidstat -t 
+* pidstat -t  
 
 - lsof -i:{port}
 - netstat -tunlp|grep {port}
 - ip addr /  ifconfig 
+- `Top` 查询CPU占用
 
 #### 2.CPU上下文切换 (Core Processor Unit)
 
@@ -38,16 +39,16 @@
 - free -m 查看
 - 4K(逻辑上多个BufferCache)
 
-##### BufferCache
+##### 3.2 BufferCache
 
 - 1K(物理上的磁盘)
 
-##### 4.DMA
+##### 4.DMA (Direct Memory Access)
 
 * (协助cpu 做数据搬移)
 * 把 数据从磁盘文件复制到内核缓冲区。
 
-#### 内核IO体系
+#### 4. 内核IO体系
 
 - VFS 屏蔽文件系统区别
 
@@ -75,3 +76,14 @@
 参考文献
 
 - [io体系](https://zhuanlan.zhihu.com/p/96391501)
+
+#### 5. Socket
+
+- TCP协议是基于数据流的，所以设置为SOCK_STREAM，而UDP是基于数据报的，因而设置为SOCK_DGRAM
+
+- Epoll 
+  - 注册Callbacl回调函数来处理
+
+#### 6.
+
+* 进程间通信可以用消息队列，大消息可以用共享内存的方式(不同的虚拟内存地址，相同的物理内存地址)(需要semaphore)

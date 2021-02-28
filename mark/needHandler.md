@@ -1,18 +1,18 @@
+### Algorithm
+
+##### Data block
+
+##### chunk 
+
+*  we just need to care about the last level data access.(硬盘)
+
+##### Cache aware algorithm
+
+
+
 segment 段
 
 segment descriptors -> Global Descriptor Table
-
-32G = 4K * 1024 * 1024 * 8 * 4
-    = 4K * 4K * 4K * 32
-
-PTE 64 * 64 * 64 * 32 
-
-4 byte
-
-16 16
-
-4M 1K*4K
-1K 
 
 Dynamic Memory Allocator
 each processor have brk 变量指向堆顶
@@ -69,8 +69,6 @@ DAGScheduler
 Spark 
 Not Thing Boring,actually the way we do,is boring.
 
-
-
 fork() 函数 新增一个子 进程并继续与父进程共同执行下面的代码
 
 select version()
@@ -102,12 +100,10 @@ cat -n log |tail  -n +1000 |head -n 100
 
 find / -name  "title"
 
-netstat -ant|find  /I "192.168.1.1"
+netstat -ant|find  / Igrep "192.168.1.1"
 netstat -na -p tcp| findstr 80 | find  "ESTABLISH"
 netstat -an -p tcp | find "127.0.0.1" | find  "2112"
 netstat -an |find  ":80" 
-
-
 
 
 
