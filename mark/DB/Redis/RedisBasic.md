@@ -1,8 +1,16 @@
 ### Redis 基础部分
 
-#### 高性能和省内存始终都是应用Redis要关注的重点
+#### 1. 高性能和省内存始终都是应用Redis要关注的重点
 
-#### 1.主从数据同步
+- **C 语言实现**，虽然 C 对 Redis 的性能有助力，但语言并不是最核心因素。
+
+- **纯内存 I/O**，相较于其他基于磁盘的 DB，Redis 的纯内存操作有着天然的性能优势。
+
+- **I/O 多路复用**，基于 epoll/select/kqueue 等 I/O 多路复用技术，实现高吞吐的网络 I/O。
+
+- **单线程模型**，单线程无法利用多核，但是从另一个层面来说则避免了多线程频繁上下文切换，以及同步机制如锁带来的开销。
+
+#### 2.主从数据同步
 
 ##### COW(Copy On Write(Linux 的特性))
 
@@ -160,6 +168,7 @@ typedef  struct listNode{
        //节点的值
        void *value;  
 }listNode
+    
 //链表
 typedef struct list{
      //表头节点
@@ -175,6 +184,7 @@ typedef struct list{
      //节点值对比函数
      int (*match) (void *ptr,void *key);
 }list;
+
 //字典集合
 typedef struct dictht{
      //哈希表数组
@@ -244,6 +254,7 @@ typedef struct intset{
 }intset;
 
 //ziplist
+//一整块大的内存区域，定位在尾节点entry的偏移位置，然后entry持有前个节点的
 typedef struct ziplist{
     //占用内存
     uint32_t zlbytes; 

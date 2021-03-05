@@ -20,10 +20,6 @@
 - TCP/UDP
 - IP,ICMP,OSPF,BGP,IPSec,GRE
 
-
-
-- - 
-
 ### 1.应用层
 
 ------
@@ -69,6 +65,48 @@
   * 固定分隔符
   * 开头固定字节标记数据长度
 
+##### TCP攻击
+
+* 对于将建立的连接，TCP这边会本地保存一个数据。client 这边发送虚假地址的SYN_1请求，server端会向client 端发送响应(SYN+ACK报文)，但是找不到对应的client,并等待一段时间（SYN timeout）
+
+##### TCP连接流程
+
+```sequence
+Title: Connect
+participant Client
+Note right of Server: Closed
+Note left of Client: Closed
+Note right of Server: Listen
+Note left of Client: SYN_SENT
+Note right of Server: SYN_RECV
+Note left of Client: ESTABLISHED
+Note right of Server: ESTABLISHED
+participant Server
+
+
+```
+
+##### TCP断开流程
+
+```sequence
+participant Client
+Client -> Server: FIN(M)
+Note left of Client: FIN_WAIT_1
+
+Server -> Client: ACK(M+1)
+Note right of Server: CLOSE_WAIT
+Note left of Client: FIN_WAIT_2
+Server -> Client: FIN(N)
+Note right of Server: LAST_ACK
+Client -> Server: ACK(N+1)
+Note left of Client: TIME_WAIT \n (2MSL)
+Note left of Client: CLOSED
+Note right of Server: CLOSED
+participant Server
+```
+
+
+
 #### UDP
 
 * 面向数据报
@@ -87,6 +125,7 @@
     
     数据发生丢失时候需要整个数据包重传。
   ```
+```
 
 * UDP的时间数据长度会比理论值小，因为受限于系统的实现
 
@@ -100,3 +139,5 @@
 
 #### ICMP
 
+
+```

@@ -104,3 +104,7 @@ ChannelEventRunnable#run()
 * fail-fast
 * fail-safe
 * forking
+
+##### 6.调用链
+
+* context中 传递隐含参数traceId, 这个需要借助全局traceId生成器来生成。
